@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" >
 <html>
 
@@ -98,7 +98,7 @@ function Gallery(galleryNode, picArr) {
 	/////////////Создатель ДОМа//////////////////////////////////////	
 	var bigPictureFrame = document.createElement('div');
 	var bigImg = document.createElement('img');
-	bigImg.src = 'image/' + this.arrOfPic[0];
+	bigImg.src = 'images/' + this.arrOfPic[0];
 	bigPictureFrame.className = 'big-picture';
 	bigPictureFrame.appendChild(bigImg);
 	this.domNodes.appendChild(bigPictureFrame);
@@ -113,9 +113,9 @@ function Gallery(galleryNode, picArr) {
 	var liLeftArrow = document.createElement('img');
 	var liRightArrow = document.createElement('img');
 	liLeftArrow.className = 'left';
-	liLeftArrow.src = 'image/leftArrow.jpg';
+	liLeftArrow.src = 'images/leftArrow.jpg';
 	liRightArrow.className = 'right';
-	liRightArrow.src = 'image/rightArrow.jpg';
+	liRightArrow.src = 'images/rightArrow.jpg';
 	previews.appendChild(liLeftArrow);
 
 	for (var i = 0; i < this.arrOfPic.length; i++) {
@@ -130,8 +130,8 @@ function Gallery(galleryNode, picArr) {
 		} else { // открываем для превью 4 картинки
 			list.className += ' unvisible';
 		}
-		smallImg.src = 'image/' + this.arrOfPic[i];
-		smallImg.setAttribute('bigpic', 'image/' + this.arrOfPic[i]);
+		smallImg.src = 'images/' + this.arrOfPic[i];
+		smallImg.setAttribute('bigpic', 'images/' + this.arrOfPic[i]);
 		list.appendChild(smallImg);
 		previews.appendChild(list);
 	};
