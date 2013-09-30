@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<html>
+
+<head>
+<title>Галлерея</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+</head>
+<div class='gal'>
+</div>
+<div class='gal'>
+</div>
+
+<body>
+
+
+<script type="text/javascript">
+
+'use strict';
+
+var picList = [
+			  ['image1.jpg', 'image2.jpg', 'image3.jpg', 'image4.jpg', 
+			   'image5.jpg', 'image6.jpg', 'image7.jpg', 'image8.jpg', 
+			   'image9.jpg', 'image10.jpg', 'image11.jpg', 'image12.jpg'],
+			   ['fish1.jpg', 'fish2.jpg', 'fish3.jpg', 'fish4.jpg', 'fish5.jpg',
+				'fish6.jpg', 'fish7.jpg', 'fish8.jpg', 'fish9.jpg', 'fish10.jpg',
+			  	'fish11.jpg', 'fish12.jpg', 'fish13.jpg', 'fish14.jpg', 'fish15.jpg']
+			  	];
+
+
+var LEFT_ARROW = 37;
+var RIGHT_ARROW = 39;
+
+function addClass (node, className) {
+	if ((node.className.indexOf(className) === -1) && (node.className.length !== 0)) {
+		node.className += " "+className;
+	} else if(node.className.indexOf(className) ===-1 && node.className.length === 0) {
+		node.className = className;
+	}
+}
+
+
+function removeClass(node, className) {
+	var tmpStr = '';
+	var result = node.className.split(' ');
+	for (var i = 0; i < result.length; i++) {
+		if (result[i] && (result[i] !== className)) {
+			if (i !== 0) {
+				tmpStr += ' ' + result[i];
+			} else {
+				tmpStr = result[i];
+			};
+
+		}
+	}
+	node.className = tmpStr;
+}
+
+
+function bind(obj, eventName, handler) {
+	var handlerWrapper = function(event) {
+		event = event || window.event;
+		if (!event.target && event.srcElement) {
+			event.target = event.srcElement;
+		}
+		return handler.call(obj, event);
+	};
+
+	if (obj.addEventListener) {
+		obj.addEventListener(eventName, handlerWrapper, false);
+	} else if (obj.attachEvent) {
+		obj.attachEvent('on' + eventName, handlerWrapper);
+	}
+	return handlerWrapper;
+}
+
+var closest = (function() {
+	return function(node, callback) {
+		var nextParent = node;
+
+		while (nextParent && (!callback(nextParent))) {
+			nextParent = nextParent.parentNode;
+		}
+		return nextParent;
+	}
+})();
+/////////////////////////////////////////////////////////////////////////////////////////////
+
+function Gallery(galleryNode, picArr) {
+	var galleryPos = 0; // позиция превью
+	this.pos = galleryPos; 
+	var bigImgPos = 0; // позиция большой картинки в массиве
+	this.bigPos = bigImgPos;
+	this.domNodes = galleryNode; // узел на который вешается галлерея
+	this.arrOfPic = picArr; // подмассив массива картинок
+	var aNext = true; // включено листание
+	this.aNext = aNext; 
+	/////////////Создатель ДОМа//////////////////////////////////////	
+	var bigPictureFrame = document.createElement('div');
+	var bigImg = document.createElement('img');
+	bigImg.src = 'image/' + this.arrOfPic[0];
+	bigPictureFrame.className = 'big-picture';
+	bigPictureFrame.appendChild(bigImg);
+	this.domNodes.appendChild(bigPictureFrame);
+	//------------------------------------------/
+	var container = document.createElement('div');
+	container.className = 'container';
+	var frame = document.createElement('div');
+	frame.className = 'frame';
+	var previews = document.createElement('ul');
+	previews.className = 'previews';
+
+	var liLeftArrow = document.createElement('img');
+	var liRightArrow = document.createElement('img');
+	liLeftArrow.className = 'left';
+	liLeftArrow.src = 'image/leftArrow.jpg';
+	liRightArrow.className = 'right';
+	liRightArrow.src = 'image/rightArrow.jpg';
+	previews.appendChild(liLeftArrow);
+
+	for (var i = 0; i < this.arrOfPic.length; i++) {
+		var list = document.createElement('li');
+		var smallImg = document.createElement('img');
+		if (i == 0) {
+			list.className = 'current';
+		} // открываем картинку сразу при создании
+
+		if (i <= 3) {
+			list.className += ' visible';
+		} else { // открываем для превью 4 картинки
+			list.className += ' unvisible';
+		}
+		smallImg.src = 'image/' + this.arrOfPic[i];
+		smallImg.setAttribute('bigpic', 'image/' + this.arrOfPic[i]);
+		list.appendChild(smallImg);
+		previews.appendChild(list);
+	};
+	previews.appendChild(liRightArrow);
+	frame.appendChild(previews);
+	container.appendChild(frame);
+	this.domNodes.appendChild(container);
+	/////////////////////////////////////////////////////////////////////
+	this.ul = galleryNode.querySelector('.previews');
+	this.imgs = this.ul.querySelectorAll('li');
+	this.bigImg = galleryNode.querySelector('.big-picture img');
+}
+///////////////////////////Итого ^^^^^^^^^^^^^^ имеем ДОМ и конструктор
+ 
+// Метод показа превьюшек 
+Gallery.prototype.showPreview = function() {
+	for (var i = 0; i < this.imgs.length; i++) {
+		if ((i >= this.pos) && (i <= (this.pos + 3))) {
+			removeClass(this.imgs[i], 'unvisible');
+			addClass(this.imgs[i], 'visible');
+		} else {
+			removeClass(this.imgs[i], 'visible');
+			addClass(this.imgs[i], 'unvisible');
+		}
+	};
+}
+
+// Метод переключения превью вперед или назад
+Gallery.prototype.next = function(toLeft) {
+
+	if ((this.pos < (this.imgs.length - 4)) && (toLeft)) {
+		this.pos += 1;
+	}
+	if ((this.pos > 0) && (!toLeft)) {
+		this.pos -= 1;
+	}
+	this.showPreview();
+}
+
+// Метод autoNext -  автоматическая смена картинок
+// автоматической ее делает функция внизу :), зависит от this.aNext
+Gallery.prototype.autoNext = function() {
+	if (this.aNext) {
+		this.bigPos = this.bigPos + 1;
+		if (this.bigPos > this.arrOfPic.length - 1) {
+			this.bigPos = 0;
+		}
+		var imgNode = this.imgs[this.bigPos].querySelector('img');
+		this.show(imgNode);
+	}
+
+}
+
+// Метод отображения большого изображения по переданному узлу малого изображения
+Gallery.prototype.show = function(node) {
+	this.bigImg.src = node.getAttribute('bigpic');
+	for (var i = 0; i < this.imgs.length; i += 1) {
+		removeClass(this.imgs[i], 'current');
+	}
+	addClass(node.parentNode, 'current');
+}
+
+/*    Обработчики  событий */
+var autoNext;
+var gallerysNode = document.querySelectorAll('.gal');
+var gallerys = [];
+var currentGallery;
+// Создание коллекции обьектов типа Gallery
+for (var i = 0; i < gallerysNode.length; i += 1) {
+	gallerys.push(new Gallery(gallerysNode[i], picList[i]));
+}
+if (!!gallerys[0]) {currentGallery = gallerys[0];}
+var clicked = function(event) {
+	// Установка текущего слайдера 
+	var isGallery = closest(event.target, function(node) {
+		return node.className === 'gal';
+	});
+
+	//if (hasClass(isGallery, 'gal')) {
+		for (var i = 0; i < gallerys.length; i += 1) {
+			if (isGallery === gallerys[i].domNodes) {
+				currentGallery = gallerys[i];
+
+			}
+		}
+	//}
+	// Обработка события нажатия на стрелки карусели
+
+	if (event.target.className==='left') {
+		currentGallery.next(false);
+	}
+	if (event.target.className==='right') {
+		currentGallery.next(true);
+	}
+
+	// Обработка события нажатия на превью и остановка таймера
+	if (event.target.hasAttribute('bigpic')) {
+		currentGallery.show(event.target);
+		currentGallery.aNext = false;
+		//clearTimeout(autoNext);
+	}
+
+}
+
+
+
+// Запуск таймера смены изображений при загрузке страницы
+
+var ready = function(event) {
+	autoNext = setTimeout(function run() {
+		for (var i = 0; i < gallerys.length; i += 1) {
+			var gallery = gallerys[i];
+			gallery.autoNext();
+		}
+		autoNext = setTimeout(run, 5000);
+	}, 5000);
+
+}
+
+
+// Установка текущего слайдера при наведении
+var mouseOvered = function(event) {
+	var isGallery = closest(event.target, function(nodeN) {
+		return event.target.className==='gal';
+	});
+
+		for (var i = 0; i < gallerys.length; i += 1) {
+			if (isGallery === gallerys[i].domNodes) {
+				currentGallery = gallerys[i];
+			}
+		}
+}
+
+
+//Смена изображений и при нажатии стрелок на клавиатуре
+var keyDown = function(event) {
+	if (event.keyCode === RIGHT_ARROW) {
+		currentGallery.next(false);
+	}
+	if (event.keyCode === LEFT_ARROW) {
+		currentGallery.next(true);
+	}
+}
+
+bind(window, 'load', ready);  
+bind(document, 'mouseover', mouseOvered);
+bind(document, 'click', clicked);
+bind(document, 'keydown', keyDown);
+
+
+</script>
+
+
+
+<style type="text/css">
+
+/* RESET CSS */
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+body {
+	line-height: 1;
+}
+ol, ul {
+	list-style: none;
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+
+/* --------*/
+
+.gal {
+	float: left;
+	border:2px solid #CCC;
+	border-radius: 10px;
+	background: #eee;
+	width: 610px;
+	height: 550px;
+
+}
+
+.big-picture img{
+	text-align: center;
+	margin:10px 5px;
+	width: 600px;
+	height: 400px
+}
+
+.container {
+	position: relative;
+}
+
+html { overflow-x: hidden; }
+
+.previews {
+height: 90px;
+width: 9999px;
+margin:0 0 50px;
+margin-left: 0;
+}
+
+.previews li {
+	float:left;
+
+	border-radius: 10px;
+	cursor: pointer;
+
+}
+
+.visible  img {
+display: inline;
+border-color: aqua;
+border-radius: 20px;
+border: solid 2px;
+
+}
+
+.visible img:hover {
+	border-color: aqua;
+    background: red;
+    border-radius: 0px;
+
+}
+
+.unvisible img{
+display: none;
+}
+
+.previews li img {
+	/*display: block;*/
+		width: 115px;
+		height: 100px;
+
+}
+
+.frame {
+	width: 590px;
+	margin:10px;
+	height: 110px;
+}
+
+
+.previews .current {
+
+border-radius: 0px;
+	margin-top: -15px;
+}
+
+.left{
+	float: left;
+	padding: 3px;
+	margin: 2px;
+	width: 45px;
+	height: 100px;
+
+}
+
+.right{
+	padding: 3px;
+	margin: 2px;
+	width: 45px;
+	height: 100px;
+
+
+}
+</style>
+
+
+</body>
+</html>
+
+
+
