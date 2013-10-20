@@ -1,0 +1,184 @@
+	
+<html>
+<head>
+	<title>Валидатор e-mail</title>
+    <meta charset="utf-8" />
+</head>
+<body>
+    <div class="container"><br>
+	<form name="getEmail" action="/form-action" method="POST">
+  Email:<input name="email"      type="text"   value="email@gmail.com"></input>
+		<input name="submitForm" type="submit" value="Send">   </input>
+	</form>
+	<div class="userErrorShow"></div>	
+</div>
+				
+	
+			
+<script type="text/javascript"> 
+
+"use strict"
+    function bindEvent(node, eventName, handler) {
+        var handler_wrapper = function(event) {
+            event = event || window.event;
+            if (!event.target && event.srcElement) {
+                event.target = event.srcElement;
+            }
+            return handler.call(node, event);
+        };
+
+        if (node.addEventListener) {
+            node.addEventListener(eventName, handler_wrapper, false);
+        } else if (node.attachEvent) {
+            node.attachEvent('on' + eventName, handler_wrapper);
+        }
+        return handler_wrapper;
+    }   
+
+
+    function cancelDefaultEvent (event) {
+        if(event.preventDefault) {
+            event.preventDefault();
+        } else {
+            event.returnValue = false;
+        }
+    }
+/////////////////////////////////////////////////////////
+
+var arrayOfPresentEmails= ['valik@nm.ru', 'valikisbest@gmail.com', 'test@test.net', 'test@test.org', 'test@test.com'];
+
+function IsValidEmail(emailForm, emailArr) {
+    this.emailForm = emailForm;
+        this.submitInput = emailForm.querySelector("[name=email]");
+        this.inputValue = this.submitInput.value;
+        this.messageContainer = document.querySelector(".userErrorShow");
+        this.buttonSubmitForm = document.querySelector("[name = submitForm]");
+        this.timeout;
+        this.emailArr = emailArr;
+        var self = this;
+    
+      this.messages = { 
+              tip:"Введите в поле e-mail типа login@domen.domen",
+            emptyField: "Это поле не должно быть пустым",
+            notValidForm: "Адрес электронной почты некорректен",
+            usedEmail: "Данный адрес электронной почты уже занят",
+            validEmail:"Можно отправлять !!!"
+    };
+
+var  formsHandler = function(event) {
+            clearTimeout(self.timeout);
+            self.inputValue = this.value;
+            self.timeout = setTimeout(function(){self.errorSwitcher(self.inputValue)},700);
+        }
+    // при попадании в форму курсора - подсказка
+    bindEvent(self.submitInput, "focus", function(event) {
+            self.messageContainer.innerHTML = self.messages.tip; 
+        }); 
+   
+    bindEvent(self.submitInput, "blur", formsHandler); //   при уходе с фокуса - обработка ошибок
+    bindEvent(self.submitInput, "keyup", formsHandler);// проверка при набивании
+    bindEvent(this.emailForm, "submit", formsHandler); // проверка при отправке
+}
+
+    
+    IsValidEmail.prototype.validateEmail = function (email) { 
+        var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        //^([a-z0-9_-]+\.)*[a-z0-9_-]+@[a-z0-9_-]+(\.[a-z0-9_-]+)*\.[a-z]{2,6}$
+        return re.test(email);
+    }; 
+
+    
+    IsValidEmail.prototype.errorSwitcher = function(email) {
+      var err = false; // флаг наличия ошибок - (можно вместо булева выводить код ошибки)
+      if (this.inputValue.length === 0) {
+        err = true;
+        this.messageContainer.innerHTML = this.messages.emptyField;
+      } else if (!this.validateEmail(this.inputValue)) {
+        err = true;
+        this.messageContainer.innerHTML = this.messages.notValidForm;
+      } else if (this.isUsedEmail(this.inputValue)) {
+        err = true;
+        this.messageContainer.innerHTML = this.messages.usedEmail;
+      }
+      if (err === false) { // если нет ошибок
+        this.messageContainer.innerHTML = this.messages.validEmail; // выводим сообщение о валидности мыла
+        this.buttonSubmitForm.disabled = false; //  делаем активной кнопку
+      } else {
+        //cancelDefaultEvent(event); // отключаем событие отправки по умолчанию
+        this.buttonSubmitForm.disabled = true; // делаем неактивной кнопку
+      }
+    }
+
+    IsValidEmail.prototype.isUsedEmail = function (email) {
+       for (var i = 0; i < this.emailArr.length; i++) {
+        if (this.emailArr[i] === email) {return true;} 
+              }
+             return false;
+          }
+
+
+var emailForm = new IsValidEmail(document.querySelector("[name=getEmail]"), arrayOfPresentEmails );
+
+</script>
+
+<style>
+  /* RESET CSS */
+  html, body, div, span, applet, object, iframe,
+  h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+  a, abbr, acronym, address, big, cite, code,
+  del, dfn, em, img, ins, kbd, q, s, samp,
+  small, strike, strong, sub, sup, tt, var,
+  b, u, i, center,
+  dl, dt, dd, ol, ul, li,
+  fieldset, form, label, legend,
+  table, caption, tbody, tfoot, thead, tr, th, td,
+  article, aside, canvas, details, embed,
+  figure, figcaption, footer, header, hgroup,
+  menu, nav, output, ruby, section, summary,
+  time, mark, audio, video {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-size: 100%;
+    font: inherit;
+    vertical-align: baseline;
+  }
+  /* HTML5 display-role reset for older browsers */
+  article, aside, details, figcaption, figure,
+  footer, header, hgroup, menu, nav, section {
+    display: block;
+  }
+  body {
+    line-height: 1;
+  }
+  ol, ul {
+    list-style: none;
+  }
+  blockquote, q {
+    quotes: none;
+  }
+  blockquote:before, blockquote:after,
+  q:before, q:after {
+    content: '';
+    content: none;
+  }
+  table {
+    border-collapse: collapse;
+    border-spacing: 0;
+  }
+  /* -----------*/
+ .container {
+    position: relative;
+    top: 100px;
+    left: 100px;
+    background-color: aqua;
+    width:300px;
+    height: 90px;
+    margin-bottom: 10px;
+    line-height: 1.2;
+    padding-left: 5;
+ }
+
+  </style>
+</body>
+</html>

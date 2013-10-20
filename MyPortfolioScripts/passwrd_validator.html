@@ -1,0 +1,178 @@
+	
+<html>
+<head>
+	<title>Валидатор пароля</title>
+    <meta charset="utf-8" />
+</head>
+<body>
+    <div class="container"><br>
+	<form name="getPassword" action="/form-action" method="POST">
+  Password:<input name="password"      type="password" ></input>
+		<input name="submitForm" type="submit" value="Send">   </input>
+	</form>
+	<div class="userPasswrdStatusShow"></div>	
+</div>
+				
+	
+			
+<script type="text/javascript"> 
+// [-] Скрипт жестко привязан к названию форм, классов
+// [-] На странице не может быть несколько одинаковых форм ввода паролей
+// [+] Легко набрать форму из нескольких валидаторов и управлять общей кнопкой Submit, через готовность кажого поля.
+
+"use strict"
+
+var PASSW_SATISFACTION_LEVEL = 3; 
+
+    function bindEvent(node, eventName, handler) {
+        var handler_wrapper = function(event) {
+            event = event || window.event;
+            if (!event.target && event.srcElement) {
+                event.target = event.srcElement;
+            }
+            return handler.call(node, event);
+        };
+
+        if (node.addEventListener) {
+            node.addEventListener(eventName, handler_wrapper, false);
+        } else if (node.attachEvent) {
+            node.attachEvent('on' + eventName, handler_wrapper);
+        }
+        return handler_wrapper;
+    }   
+
+
+    function cancelDefaultEvent (event) {
+        if(event.preventDefault) {
+            event.preventDefault();
+        } else {
+            event.returnValue = false;
+        }
+    }
+/////////////////////////////////////////////////////////
+
+
+function IsValidPassword(passwordForm) {
+ 		this.passwordForm = passwordForm;
+        this.submitInput = passwordForm.querySelector("[name=password]");
+        this.inputValue = this.submitInput.value;
+        this.statusLine = document.querySelector(".userPasswrdStatusShow");
+        
+        this.buttonSubmitForm = document.querySelector("[name = submitForm]");
+
+        var self = this;
+    
+var  formsHandler = function(event) {
+            self.inputValue = this.value;
+            self.errorSwitcher(self.inputValue);
+        }
+    // при попадании в форму курсора 
+    bindEvent(self.submitInput, "focus", formsHandler); 
+    bindEvent(self.submitInput, "blur", formsHandler);    //   при уходе с фокуса - обработка ошибок
+    bindEvent(self.submitInput, "keyup", formsHandler);   // проверка при набивании
+    bindEvent(this.passwordForm, "submit", formsHandler); // проверка при отправке
+}
+
+    
+    IsValidPassword.prototype.validatePassword = function (password) { 
+        var reOnFirstLevel  = /[a-z]/; // Проверка, что есть хотя бы один символ a-z 
+        var reOnSecondLevel = /[A-Z]/; // Проверка что есть хотя бы один символ A-Z  
+        var reOnThirdLevel  = /d/;     //Проверка что есть хотя бы одна цифра
+
+        var volume=0;
+        if (password.length!==0){
+                volume += 1;
+                if (reOnFirstLevel.test(password))  { volume += 1; }
+                if (reOnSecondLevel.test(password)) { volume += 1; } 
+                if (reOnThirdLevel.test(password))  { volume += 1; }
+        }
+        if (password.length >= 7) {volume+=1;} // бонус за длину пароля
+        return volume;
+    }; 
+
+		
+    IsValidPassword.prototype.errorSwitcher = function(password) {
+      var vol = this.validatePassword(password);
+      this.statusLine.style.width = vol * 20 + '%'; // полоска уровень сложности * единицу отображения
+      if (vol > PASSW_SATISFACTION_LEVEL) { // уровень достаточный для отправки
+        this.statusLine.style.backgroundColor = 'black';
+        this.buttonSubmitForm.disabled = false; //  делаем активной кнопку
+      } else {
+        this.statusLine.style.backgroundColor = 'red';
+        cancelDefaultEvent(event); // отключаем событие отправки по умолчанию
+        this.buttonSubmitForm.disabled = true; // делаем неактивной кнопку
+      }
+    }
+
+ 
+
+var passwordForm = new IsValidPassword(document.querySelector("[name=getPassword]"));
+</script>
+
+<style>
+  /* RESET CSS */
+  html, body, div, span, applet, object, iframe,
+  h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+  a, abbr, acronym, address, big, cite, code,
+  del, dfn, em, img, ins, kbd, q, s, samp,
+  small, strike, strong, sub, sup, tt, var,
+  b, u, i, center,
+  dl, dt, dd, ol, ul, li,
+  fieldset, form, label, legend,
+  table, caption, tbody, tfoot, thead, tr, th, td,
+  article, aside, canvas, details, embed,
+  figure, figcaption, footer, header, hgroup,
+  menu, nav, output, ruby, section, summary,
+  time, mark, audio, video {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-size: 100%;
+    font: inherit;
+    vertical-align: baseline;
+  }
+  /* HTML5 display-role reset for older browsers */
+  article, aside, details, figcaption, figure,
+  footer, header, hgroup, menu, nav, section {
+    display: block;
+  }
+  body {
+    line-height: 1;
+  }
+  ol, ul {
+    list-style: none;
+  }
+  blockquote, q {
+    quotes: none;
+  }
+  blockquote:before, blockquote:after,
+  q:before, q:after {
+    content: '';
+    content: none;
+  }
+  table {
+    border-collapse: collapse;
+    border-spacing: 0;
+  }
+  /* -----------*/
+ .container {
+    position: relative;
+    top: 100px;
+    left: 100px;
+    background-color: aqua;
+    width:300px;
+    height: 90px;
+    margin-bottom: 10px;
+    line-height: 1.2;
+    padding-left: 5;
+ }
+.userPasswrdStatusShow {
+  width : 0px;
+  height: 5px;
+  /*border: outset black;*/
+  margin-top :10;
+  background-color: red
+}
+  </style>
+</body>
+</html>

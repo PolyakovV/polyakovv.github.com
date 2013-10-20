@@ -1,0 +1,139 @@
+<html>
+<head>
+
+
+<script>
+// Задание:
+// mediator.subscribe('scrollIsDown', handler)
+// Событие происходит единожды, когда пользовать скроллит страницу до самого низа
+//
+
+'use strict';
+
+var mediator = (function() {
+    var subscribtions = {};
+
+    return {
+        trigger: function(eventName, data) {
+            if (subscribtions.hasOwnProperty(eventName)) {
+                for (var i = 0; i < subscribtions[eventName].length; i += 1) {
+                    subscribtions[eventName][i].call(window, data);
+                }
+            }
+        },
+
+        subscribe: function(eventName, handler) {
+            if (subscribtions.hasOwnProperty(eventName)) {
+                subscribtions[eventName].push(handler);
+            } else {
+                subscribtions[eventName] = [handler];
+            }
+        },
+
+        subscribeList: function() {
+            function cloneObj(obj) {
+                if (obj == null || typeof(obj) != 'object') {
+                    return obj;
+                }
+                var temp = new obj.constructor();
+                for (var key in obj) {
+                    temp[key] = cloneObj(obj[key]);
+                }
+                return temp;
+            }
+            var NewObject = cloneObj(subscribtions);
+
+            console.log(NewObject);
+        },
+        unsubscribe: function(eventName, handlerReference) {
+            if (handlerReference == undefined) {
+                subscribtions = {};
+            } else {
+
+                if (subscribtions[eventName].indexOf(handlerReference) >= 0) {
+                    subscribtions[eventName].splice(subscribtions[eventName].indexOf(handlerReference), 1);
+                }
+            }
+        }
+    };
+}());
+
+var scrollerDown = function() {
+	alert('Scroller is Down');
+};
+
+mediator.subscribe('scrollIsDown', scrollerDown); // Подписываем функцию на событие
+
+var handler = function() {
+	var docMinHeight = Math.min(document.body.clientHeight, document.documentElement.clientHeight);
+	if (!docMinHeight) docMinHeight = document.body.clientHeight;
+	var winMaxHeight = Math.max(document.body.scrollTop, document.documentElement.scrollTop),
+		docMaxHeight = Math.max(document.body.scrollHeight, document.documentElement.scrollHeight);
+	if (docMinHeight + winMaxHeight == docMaxHeight) {
+		mediator.trigger('scrollIsDown');
+        mediator.unsubscribe(scrollerDown); // убрать, если нужно постоянно
+	}
+}
+
+window.addEventListener('scroll', handler, false);
+
+</script>
+</head>
+
+
+<body>
+<p>SCROLL SCROLL SCROLL SCROLL SCROLL SCROLL SCROLL SCROLL</p>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<p>SCROLL SCROLL SCROLL SCROLL SCROLL SCROLL SCROLL SCROLL</p>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<p>SCROLL SCROLL SCROLL SCROLL SCROLL SCROLL SCROLL SCROLL</p>
+<br>
+<br>
+<p>SCROLL SCROLL SCROLL SCROLL SCROLL SCROLL SCROLL SCROLL</p>
+<br>
+<br>
+<p>SCROLL SCROLL SCROLL SCROLL SCROLL SCROLL SCROLL SCROLL</p>
+<br>
+<br>
+<p>SCROLL SCROLL SCROLL SCROLL SCROLL SCROLL SCROLL SCROLL</p>
+<br>
+<br>
+<br>
+<p>SCROLL SCROLL SCROLL SCROLL SCROLL SCROLL SCROLL SCROLL</p>
+<br>
+<br>
+<p>SCROLL SCROLL SCROLL SCROLL SCROLL SCROLL SCROLL SCROLL</p>
+<br>
+<br>
+<p>SCROLL SCROLL SCROLL SCROLL SCROLL SCROLL SCROLL SCROLL</p>
+<br>
+<br>
+<p>SCROLL SCROLL SCROLL SCROLL SCROLL SCROLL SCROLL SCROLL</p>
+<br>
+<br>
+<p>SCROLL SCROLL SCROLL SCROLL SCROLL SCROLL SCROLL SCROLL</p>
+<br>
+<br>
+<p>SCROLL SCROLL SCROLL SCROLL SCROLL SCROLL SCROLL SCROLL</p>
+<br>
+<br>
+<p>SCROLL SCROLL SCROLL SCROLL SCROLL SCROLL SCROLL SCROLL</p>
+<p>SCROLL SCROLL SCROLL SCROLL SCROLL SCROLL SCROLL SCROLL</p>
+
+</body>
+</html>

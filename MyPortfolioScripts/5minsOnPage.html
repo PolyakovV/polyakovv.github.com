@@ -1,0 +1,145 @@
+<html>
+<head>
+
+
+<script>
+
+// Задание:
+// mediator.subscribe('5minsOnPage', handler)
+// Событие происходит после того, как пользователь пробыл на странице 5 минут
+
+
+'use strict';
+
+var mediator = (function() {
+    var subscribtions = {};
+
+    return {
+        trigger: function(eventName, data) {
+            if (subscribtions.hasOwnProperty(eventName)) {
+                for (var i = 0; i < subscribtions[eventName].length; i += 1) {
+                    subscribtions[eventName][i].call(window, data);
+                }
+            }
+        },
+
+        subscribe: function(eventName, handler) {
+            if (subscribtions.hasOwnProperty(eventName)) {
+                subscribtions[eventName].push(handler);
+            } else {
+                subscribtions[eventName] = [handler];
+            }
+        },
+
+        subscribeList: function() {
+            function cloneObj(obj) {
+                if (obj == null || typeof(obj) != 'object') {
+                    return obj;
+                }
+                var temp = new obj.constructor();
+                for (var key in obj) {
+                    temp[key] = cloneObj(obj[key]);
+                }
+                return temp;
+            }
+            var NewObject = cloneObj(subscribtions);
+
+            console.log(NewObject);
+        },
+        unsubscribe: function(eventName, handlerReference) {
+            if (handlerReference == undefined) {
+                subscribtions = {};
+            } else {
+
+                if (subscribtions[eventName].indexOf(handlerReference) >= 0) {
+                    subscribtions[eventName].splice(subscribtions[eventName].indexOf(handlerReference), 1);
+                }
+            }
+        }
+    };
+}());
+
+var handlerFiveMinutes = function() {
+    alert('You stay at page about five minutes !!!');
+};
+
+mediator.subscribe('5minsOnPage', handlerFiveMinutes); // Подписываем функцию на событие
+
+function addEvent(node, eventName, handler) {
+    if ( node.addEventListener ) {
+        node.addEventListener(eventName, handler, false);
+    } else if ( node.attachEvent ) {
+        node.attachEvent('on' + eventName, handler);
+    }
+}
+
+var handlerEv = function() {
+    setTimeout(function() {
+        mediator.trigger('5minsOnPage');
+    }, 5000); // изменить на 300 000ms
+
+};
+
+addEvent( window, 'load', handlerEv); 
+
+
+</script>
+</head>
+
+
+<body>
+<p>SCROLL SCROLL SCROLL SCROLL SCROLL SCROLL SCROLL SCROLL</p>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<p>SCROLL SCROLL SCROLL SCROLL SCROLL SCROLL SCROLL SCROLL</p>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<p>SCROLL SCROLL SCROLL SCROLL SCROLL SCROLL SCROLL SCROLL</p>
+<br>
+<br>
+<p>SCROLL SCROLL SCROLL SCROLL SCROLL SCROLL SCROLL SCROLL</p>
+<br>
+<br>
+<p>SCROLL SCROLL SCROLL SCROLL SCROLL SCROLL SCROLL SCROLL</p>
+<br>
+<br>
+<p>SCROLL SCROLL SCROLL SCROLL SCROLL SCROLL SCROLL SCROLL</p>
+<br>
+<br>
+<br>
+<p>SCROLL SCROLL SCROLL SCROLL SCROLL SCROLL SCROLL SCROLL</p>
+<br>
+<br>
+<p>SCROLL SCROLL SCROLL SCROLL SCROLL SCROLL SCROLL SCROLL</p>
+<br>
+<br>
+<p>SCROLL SCROLL SCROLL SCROLL SCROLL SCROLL SCROLL SCROLL</p>
+<br>
+<br>
+<p>SCROLL SCROLL SCROLL SCROLL SCROLL SCROLL SCROLL SCROLL</p>
+<br>
+<br>
+<p>SCROLL SCROLL SCROLL SCROLL SCROLL SCROLL SCROLL SCROLL</p>
+<br>
+<br>
+<p>SCROLL SCROLL SCROLL SCROLL SCROLL SCROLL SCROLL SCROLL</p>
+<br>
+<br>
+<p>SCROLL SCROLL SCROLL SCROLL SCROLL SCROLL SCROLL SCROLL</p>
+<p>SCROLL SCROLL SCROLL SCROLL SCROLL SCROLL SCROLL SCROLL</p>
+
+</body>
+</html>

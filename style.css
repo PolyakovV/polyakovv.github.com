@@ -40,6 +40,7 @@ body {
     /*padding: 10px 10px 10px 10px;*/  
     text-align: center;  
     /*background-color:#ff9999;  */
+    text-shadow:#cccccc 5px 10px  2px
 }  
 
 .h1 
@@ -55,10 +56,10 @@ body {
   /*display:none;*/
   float: right;   
   width: 200px;  
-  margin: 10px 0px 0px 0px;  
+  margin: 10px 10px 0px 0px;  
   text-align: center; 
   background-color:aqua;
-    box-shadow: 0.4em 0.4em 5px rgba(122,122,122,0.5);
+    box-shadow: 0.5em 0.5em 6px rgba(122,122,122,0.5);
     /* Internet Explorer */
     filter:alpha(opacity=50);
     /* CSS3 standard */
@@ -93,7 +94,7 @@ body {
 
 .left   
 {   background-color:aqua;
-    box-shadow: 0.4em 0.4em 5px rgba(122,122,122,0.5);
+     box-shadow: 0.5em 0.5em 6px rgba(122,122,122,0.5);
     margin: 13px 0px 10px 10px; 
     /* Internet Explorer */
     filter:alpha(opacity=50);
@@ -227,6 +228,7 @@ li a.active_js {
 
 p.show_js {
   display:block;
+
 }
 
 .hovered {

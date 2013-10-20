@@ -1,0 +1,278 @@
+html, body, div, span, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+abbr, address, cite, code,
+del, dfn, em, img, ins, kbd, q, samp,
+small, strong, sub, sup, var,
+b, i,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section, summary,
+time, mark, audio, video {
+    margin:0;
+    padding:0;
+    border:0;
+    font-size:100%;
+    vertical-align:baseline;
+    background:transparent;
+}
+footer,header { 
+    display:block;
+}
+
+
+body { 
+	font: 12px/17px tahoma, arial;
+	background: #155970;
+	margin: auto auto; 
+	padding: 0;
+	text-align: center;
+	}
+
+p { 
+	font: 12px/17px tahoma, arial, sans-serif; 
+	margin: 0 0 17px 0; 
+	}
+a:link { 
+	font-weight: bold; 
+	text-decoration: none; 
+	color: #333399;
+	}
+
+a:hover, a:active { 
+	text-decoration: underline; 
+	color: #3366CC;
+	}
+
+ul {
+	list-style-type: none;
+	margin: 0; 
+	padding: 0;
+}
+
+
+.page-wrapper {
+	width: 762px;
+	padding: 427px 0 0 0; 
+	position: relative;
+	margin: auto;
+	text-align: left;
+	background: url('images/pagehead.gif') no-repeat top left; 
+	}
+
+.intro { 
+	vertical-align: bottom;
+	}
+
+header { 
+	position: absolute;
+	top: 0;
+	left: 0;
+	padding: 0; 
+	margin: 0;
+	width: 100%;
+	height: 425px;
+	border: 1px solid white;
+	}
+
+header h1 {
+	width: 760px;
+	height: 430px;
+	text-indent: 100%; /*Убираем заголовок*/
+	white-space: nowrap;
+	overflow: hidden;
+}	
+
+header h2 { 
+	padding: 0; 
+	margin: 0;
+	text-indent: 100%;  /*Делаем невидимым текст*/
+	white-space: nowrap;
+	overflow: hidden;
+	}
+.summary p:first-child {
+	display:none;
+	}
+
+.summary p:last-child{
+	display: block;
+	position: absolute;
+	top: 400px;
+	margin-left: 250px;
+	padding: 0 7px 0 7px;
+	font-size: 10px;
+	text-align: center; 
+	color: white;
+	text-transform: uppercase;
+	font-family:Arial, Helvetica, sans-serif;
+}
+
+.summary p:last-child a:link, a:active{
+	color:#33eeff;
+}
+
+.summary p:last-child a:hover{
+	text-decoration: underline;
+}
+
+.preamble {
+	width: 291px;
+	float: left;
+	background: url(images/bg_preamble.gif) no-repeat;
+	}
+
+.preamble h3 {
+	background:  url(images/header_preamble.gif) no-repeat;
+	width: 291px;
+	height: 50px;
+	margin: 0; 
+	padding: 0;
+	border-top: 1px solid white;
+	text-indent: 100%;
+	white-space: nowrap;
+	overflow: hidden;
+}
+
+.preamble p {
+	font-family:Arial, Helvetica, sans-serif;
+	padding: 5px;
+	color: #155970;
+	font-size:12px;
+	text-transform:uppercase;
+	font-weight:bold;
+	width: 270px; 
+}
+
+.supporting {
+	margin: -1px 0px 40px 0px;
+	background: #33ccff;
+	border: 1px solid white;
+	width: 469px;
+	float: right;
+	}
+
+.supporting p {
+	margin: 9px 17px 17px 24px;
+	color: #155970;
+}	
+.explanation h3 {
+	background: url(images/what_is.gif) no-repeat;
+	width: 469px;
+	height: 40px;
+	margin: 0; 
+	text-indent: 100%;
+	white-space: nowrap;
+	overflow: hidden;
+}
+.participation h3 {
+	background: url(images/participation.gif) no-repeat;
+	width: 469px;
+	height: 40px;
+	text-indent: 100%; /* убираем  надпись перед картинкой */
+	overflow: hidden;
+}
+.benefits h3 {
+	background:  url(images/benefits.gif) no-repeat;
+	width: 469px;
+	height: 40px;
+	text-indent: 100%; /* убираем  надпись Benefits */
+	overflow: hidden;
+}
+.requirements h3 {
+	background:  url(images/requirements.gif) no-repeat;
+	width: 469px;
+	height: 40px;
+	text-indent: 100%;
+	overflow: hidden;
+}
+
+footer {
+	background: #155970;
+	border: 1px solid white;
+	padding: 0 0 2px 24px;
+	font-size: 12px;
+	font-weight:bold;
+	text-align: center; 
+	text-transform:uppercase;
+	font-family:Arial, Helvetica, sans-serif;
+}
+
+a.designer-name {
+	font-weight: normal;
+}
+.design-selection, .design-archives, .zen-resources {
+	width: 278px;
+	clear: left;
+	padding: 0;
+	margin: 0;
+}
+.design-selection {
+	background: url(images/select.gif) no-repeat;
+	border: 1px solid white;
+	margin-top: 20px;
+	padding: 50px 0 0 5px;
+}
+
+.design-selection li a:hover {
+	text-decoration:none;
+	text-transform:uppercase;
+	color: #e9e9e9;
+}
+
+.design-archives {
+	background: url(images/archives.gif) no-repeat;
+	border: 1px solid white;
+	margin-top: 20px;
+	padding: 50px 0 0 5px;
+}
+
+.design-archives li a:link, a:active{
+	text-decoration:none;
+	text-transform:uppercase;
+	font-size:12px;
+	color:#FFFFFF;
+}
+
+.design-archives li a:hover {
+	text-decoration:none;
+	color: #e9e9e9;
+}
+
+.zen-resources {
+	background: url(images/resource.gif) no-repeat;
+	border: 1px solid white;
+	margin-top: 20px;
+	padding: 50px 0 0 5px;
+}
+
+.zen-resources li a:link, a:active{
+	text-decoration:none;
+	text-transform:uppercase;
+	font-size:12px;
+	color:white;
+}
+
+.zen-resources li a:hover {
+	text-decoration:none;
+	color: #e9e9e9;
+}
+
+.design-selection h3, .design-archives h3, .zen-resources h3 {
+	text-indent: 100%; /* убираем  надписи под заголовками */
+	white-space: nowrap;
+	overflow: hidden;
+	margin: 0;
+}
+
+.sidebar {
+	position: absolute;
+	top: 68em;
+}
+.sidebar .wrapper  ul {
+	padding: 20px 10px 10px 10px;
+	display:block;
+}
+.sidebar li {
+	margin: 2px 0;
+}

@@ -1,0 +1,162 @@
+<html>
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>Меню</title>
+</head>
+
+<body>
+<style type="text/css">
+.mainmenu ul{
+margin: 0;
+padding: 0;
+list-style-type: none;
+font: bold 13px Verdana;
+width: 180px; /*Ширина меню */
+border-bottom: 1px solid #ccc;
+}
+ 
+.mainmenu ul li{
+position: relative;
+}
+
+.mainmenu ul li a{
+display: block;
+overflow: auto; 
+color: white;
+text-decoration: none;
+padding: 6px;
+border-bottom: 1px solid #778;
+border-right: 1px solid #778;
+}
+
+.mainmenu ul li a:link, 
+.mainmenu ul li a:visited,
+.mainmenu ul li a:active{
+background-color: blue; 
+}
+
+.mainmenu ul li a:visited{
+color: white;
+}
+
+.mainmenu ul li a:hover{
+background-color: aqua;
+}
+
+.mainmenu ul li ul{
+position: absolute;
+width: 170px; /*Ширина подменю */
+top: 0;
+visibility: hidden;
+}
+.mainmenu a.subMenuStyle{
+background: url(right.gif) no-repeat 97% 50%;
+}
+
+.mainmenu {
+visibility :hidden;  
+position :relative;
+}
+</style>
+
+<script type="text/javascript">
+
+
+var menuIDs = ["mainmenu1"]; // имя меню
+var onOffTrigger = false;
+
+  function bindEvent(node, eventName, handler) {
+  var handler_wrapper = function(event) {
+    event = event || window.event;
+    if (!event.target && event.srcElement) {
+      event.target = event.srcElement;
+    }
+    return handler.call(node, event);
+  };
+
+  if (node.addEventListener) {
+    node.addEventListener(eventName, handler_wrapper, false);
+  } else if (node.attachEvent) {
+    node.attachEvent('on' + eventName, handler_wrapper);
+  }
+  return handler_wrapper;
+}
+
+
+function initMenu(event) {
+  event.preventDefault(); // отключаем родное меню
+  onOffTrigger = !onOffTrigger; // триггерим отображение меню(убирается тоже правой кнопкой не на меню)
+  var menuCont = document.getElementsByClassName('mainmenu');
+  if (onOffTrigger) {
+    menuCont[0].style.visibility = 'visible';
+    menuCont[0].style.top = event.clientY - 28 + 'px';
+    menuCont[0].style.left = event.clientX - 10 + 'px';
+    onOffTrigger = 1;
+  } else {
+    menuCont[0].style.visibility = 'hidden';
+  }
+  for (var i = 0; i < menuIDs.length; i++) {
+    var ulTagsList = document.getElementById(menuIDs[i]).getElementsByTagName("ul");
+
+    for (var t = 0; t < ulTagsList.length; t++) {
+      ulTagsList[t].parentNode.getElementsByTagName("a")[0].className += " subMenuStyle"
+
+      if (ulTagsList[t].parentNode.parentNode.id == menuIDs[i]) {
+        ulTagsList[t].style.left = ulTagsList[t].parentNode.offsetWidth + "px"
+      } else {
+        ulTagsList[t].style.left = ulTagsList[t - 1].getElementsByTagName("a")[0].offsetWidth + "px"
+      }
+
+
+      ulTagsList[t].parentNode.onmouseover = function() {
+        this.getElementsByTagName("ul")[0].style.display = "block";
+      }
+      ulTagsList[t].parentNode.onmouseout = function() {
+        this.getElementsByTagName("ul")[0].style.display = "none";
+      }
+    }
+
+      for (var j = ulTagsList.length - 1; j > -1; j--) {
+        ulTagsList[j].style.visibility = "visible";
+        ulTagsList[j].style.display = "none";
+      }
+    }
+  }
+
+bindEvent(window, "contextmenu", initMenu );
+
+</script>
+
+
+
+
+<div class="mainmenu" >
+<ul id="mainmenu1">
+    <li><a href="#">Пункт 1</a></li>
+    <li><a href="#">Пункт 2</a></li>
+    <li><a href="#">Папка 1</a>
+        <ul>
+           <li><a href="#">Подпункт 1.1</a></li>
+           <li><a href="#">Подпункт 1.2</a></li>
+       </ul>
+    </li>
+    <li><a href="#">Пункт 3</a></li>
+    <li><a href="#">Папка 2</a>
+        <ul>
+            <li><a href="#">Подпункт 2.1</a></li>
+            <li><a href="#">Папка 2.1</a>
+              <ul>
+                  <li><a href="#">Подпункт 2.1.1</a></li>
+                  <li><a href="#">Подпункт 2.1.2</a></li>
+                  <li><a href="#">Подпункт 2.1.3</a></li>
+                  <li><a href="#">Подпункт 2.1.4</a></li>
+              </ul>
+      </li>
+        </ul>
+    </li>
+    <li><a href="#">Пункт 4</a></li>
+      </ul>
+</div>
+</html>
+</body>

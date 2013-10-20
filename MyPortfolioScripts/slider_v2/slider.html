@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <script src="lib.js"></script>
+
+  <body>
+  <div class = "slider"> 
+  <div><img src='pointer.jpg' width='20px'></div>
+  </div>
+  
+  <span class="value">Slide:<span class = "slide">0</span></span><br>
+  <span class="value">Change:<span class = "change">0</span></span>
+
+<!--
+Жесткая привязка скрипта и CSS к названию классов
+Проверенно работает IE8, IE10.0.9, GoogleChrome 29.0.1547.76 m, Opera 12.16:1860, FireFox 23.01
+
+-->
+
+
+<style>
+  html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+  display: block;
+}
+body {
+  line-height: 1;
+}
+ol, ul {
+  list-style: none;
+}
+blockquote, q {
+  quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+  content: '';
+  content: none;
+}
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+.slider {
+  margin: 45px;
+  width: 420px;
+  height: 15px;
+  background: aqua;
+  border-radius: 4px;
+}
+.slider div {
+  cursor: pointer;
+  border-radius:5px;
+  width: 20px;
+  height: 16px;
+  background: red;
+  position: relative;
+  bottom: 2px;
+
+}
+.value {
+  padding-left: 40px;
+}
+
+
+
+</style>
+
+<script>
+"use strict";
+var Slider = (function() {
+
+  function Slider(node) {
+    this.node = node;
+    this.pointerNode = this.node.children[0];
+    this.nodeCoords = this.getCoords(node);
+    this.pointerWidth = this.pointerNode.clientWidth;
+    this.sliderWidth  = this.node.clientWidth - this.pointerWidth;
+   
+    var self = this;
+
+    function handlerMove(event) {
+
+      event = fixEvent(event);
+      preventDef(event);
+ 
+      function moveSlider(event) {
+        event = fixEvent(event);
+
+        var coords = event.pageX;
+        if (coords >= (self.nodeCoords.left + self.pointerWidth / 2) && coords <= (self.nodeCoords.left + self.sliderWidth)) {
+          self.setCoordsSlider(coords - self.pointerWidth / 2 - self.nodeCoords.left);
+        } else if (coords < self.nodeCoords.left) {
+          self.setCoordsSlider(0);
+        } else if (coords > self.nodeCoords.left + self.sliderWidth) {
+          self.setCoordsSlider(self.sliderWidth);
+        }
+      }
+      addEvent(document, 'mousemove', moveSlider);
+      addEvent(self.pointerNode, 'mouseup', function() {
+        removeEvent(document, 'mousemove', moveSlider);
+      });
+      addEvent(document, 'mouseup', function() {
+        removeEvent(document, 'mousemove', moveSlider);
+      });
+    }
+    addEvent(this.pointerNode, 'mousedown', handlerMove);
+  }
+
+  Slider.prototype.getCoords = function(elem) {
+    return getCoords(elem);
+  }
+
+  Slider.prototype.setCoordsSlider = function(value) {
+    this.pointerNode.style.left = value +'px';
+     }
+
+  Slider.prototype.getCoordsSlider = function() {
+    return parseInt(this.pointerNode.style.left, 10);
+  }
+
+  Slider.prototype.on = function(obj) {
+    var self = this;
+    var factor = this.sliderWidth / 100;
+
+    function setChangeValue() {
+      var coords = (self.getCoordsSlider() / factor).toFixed() || 0;
+      obj.change(coords);
+    }
+
+    function setSlideValue() {
+      var coords = (self.getCoordsSlider() / factor).toFixed();
+      obj.slide(coords);
+    }
+
+    addEvent(self.pointerNode, 'mousedown', function() {
+      addEvent(document, 'mousemove', setSlideValue);
+      addEvent(document, 'mouseup', function() {
+        setChangeValue();
+        removeEvent(document, 'mousemove', setSlideValue);
+      });
+      
+    });
+
+    function imouse(event) {
+      var obj = {};
+      obj.ypos = event.clientY + document.body.scrollTop;
+      obj.xpos = event.clientX + document.body.scrollLeft;
+      return obj;
+    }
+
+    function moveOnClick(event) {
+      event = fixEvent(event);
+      var coordMouseObj = {};
+      var viewCoords = 0;
+      var coordsX = 0;
+
+      coordMouseObj = imouse(event);
+      coordsX = coordMouseObj.xpos;
+      if (event.target === self.node) {
+        viewCoords = (coordsX - self.nodeCoords.left - (self.pointerWidth / 2));
+
+        if (viewCoords < 0) {
+          viewCoords = 0;
+        };
+        if (viewCoords > self.sliderWidth) {
+          viewCoords = self.sliderWidth;
+        };
+        self.setCoordsSlider(viewCoords);
+        setSlideValue();
+        setChangeValue();
+      };
+    };
+   addEvent(document, 'mousedown', moveOnClick);
+  };
+  return Slider;
+})();
+
+var getSliderValues = {
+  slide: function(value) {
+    var slide = document.querySelector('.slide');
+    slide.innerHTML = value;
+  },
+  change: function(value) {
+    var change = document.querySelector('.change');
+    change.innerHTML = value;
+  }
+}
+
+
+var pointNode = document.querySelector('div.slider');
+
+var slider = new Slider(pointNode);
+
+slider.on(getSliderValues);
+
+</script>
+
+</body>
+</html>
+
