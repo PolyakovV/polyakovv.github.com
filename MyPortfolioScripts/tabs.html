@@ -195,6 +195,30 @@ bindEvent(tabCollection[i], "mouseout", disHoverImitation);
 </script>
 <style type="text/css">
 /*___________For tabs________________________________*/
+html, body, div, span, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+abbr, address, cite, code,
+del, dfn, em, img, ins, kbd, q, samp,
+small, strong, sub, sup, var,
+b, i,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section, summary,
+time, mark, audio, video {
+    margin:0;
+    padding:0;
+    border:0;
+    font-size:100%;
+    vertical-align:baseline;
+    background:transparent;
+}
+footer,header { 
+    display:block;
+}
+
+/*_______________End of reset css________________*/
 
 .container_js {
   background-color:white;
@@ -218,7 +242,7 @@ bindEvent(tabCollection[i], "mouseout", disHoverImitation);
 .menu_js {
   text-align: left;
   padding: 0;
-  margin: 15px 0;
+  margin: 15px 0px 15px;
   width: 500px;
 
 }
@@ -226,7 +250,7 @@ bindEvent(tabCollection[i], "mouseout", disHoverImitation);
 .menu_js li {
   display: inline-block;
   list-style: none;
-  padding: 0;
+  padding: 1px;
   width: 4.5em;
   text-align: center;
 }
@@ -239,7 +263,7 @@ bindEvent(tabCollection[i], "mouseout", disHoverImitation);
 }
 
 .content_js {
-  border-top: 0.1em solid blue;
+  border-top: 1px solid blue;
 }
 
 .content_js p {
@@ -257,7 +281,7 @@ bindEvent(tabCollection[i], "mouseout", disHoverImitation);
 li a.active_js {
   color: #545454;
   border: 1px solid blue;
-  border-bottom: 1px solid aqua;
+  border-bottom: 2px solid aqua;
   border-top-left-radius: 0.5em;
   border-top-right-radius: 0.5em;
 }
