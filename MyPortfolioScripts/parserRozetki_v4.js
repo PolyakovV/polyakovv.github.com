@@ -138,7 +138,7 @@
 
 	var show = function() {
 		console.log(objOfFlashOnPage);
-		console.log('Objects=', objOfFlashOnPage.length);
+		console.log('Objects=' + objOfFlashOnPage.length);
 	} // вывод в консоль
 
 	inParallel(summArrayOfLinks, getFlashMemDataFromPage, show);
