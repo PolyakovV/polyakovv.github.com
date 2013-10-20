@@ -1,0 +1,238 @@
+html, body, div, span, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+abbr, address, cite, code,
+del, dfn, em, img, ins, kbd, q, samp,
+small, strong, sub, sup, var,
+b, i,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section, summary,
+time, mark, audio, video {
+    margin:0;
+    padding:0;
+    border:0;
+    font-size:100%;
+    vertical-align:baseline;
+    background:transparent;
+}
+footer,header { 
+    display:block;
+}
+
+/*_______________End of reset css________________*/
+
+body { 
+  font: 12px/17px tahoma, arial;
+  background: url("images/hightech.gif") repeat fixed;
+  margin: 3px 0px 0px 10px;   
+  padding: 0;
+  text-align: center;
+  line-height: 22px;
+  }
+
+
+.header  
+{  
+    width: 100%;  
+    margin: 10px;
+    /*padding: 10px 10px 10px 10px;*/  
+    text-align: center;  
+    /*background-color:#ff9999;  */
+}  
+
+.h1 
+{  
+   /*float:left;*/
+   font-family:Arial, Helvetica, sans-serif;
+   font-size: 36px;
+}  
+
+.right   
+{  
+  /*visibility: hidden;*/
+  display:none;
+  float: right;   
+  width: 200px;  
+  margin: 10px 0px 0px 0px;  
+  text-align: center; 
+  background-color:aqua;
+    box-shadow: 0.4em 0.4em 5px rgba(122,122,122,0.5);
+    /* Internet Explorer */
+    filter:alpha(opacity=50);
+    /* CSS3 standard */
+    opacity:0.5; 
+   /* height: 400px; */
+    border-radius:10px;  
+    -moz-border-radius:10px; 
+    -khtml-border-radius:10px;  
+ /* height: 400px;  */
+}  
+
+.middle  
+{  
+    margin: 20px 220px 10px 220px;  
+    /*background-color:aqua;*/
+   /* height: 400px;  */
+    text-align: center; 
+   
+} 
+
+.footer  
+{  
+    margin: 0;  
+    background: url(images/val.jpg) no-repeat bottom center; 
+    margin: 0px 0px 0px 0px;
+    height: 50px; 
+    font-size: 10px;  
+    text-align: center;  
+    clear:both;  
+}  
+
+
+.left   
+{   background-color:aqua;
+    box-shadow: 0.4em 0.4em 5px rgba(122,122,122,0.5);
+    margin: 13px 0px 10px 10px; 
+    /* Internet Explorer */
+    filter:alpha(opacity=50);
+    /* CSS3 standard */
+    opacity:0.5; 
+    width: 200px;  
+    float:left;  
+   /* height: 400px; */
+    border-radius:10px;  
+    -moz-border-radius:10px; 
+    -khtml-border-radius:10px; 
+} 
+
+.left:hover , .right:hover 
+{   background-color:aqua;
+  /* Internet Explorer */
+    filter:alpha(opacity=99);
+    /* CSS3 standard */
+    opacity:0.99; 
+}
+
+.left_header{
+
+  text-align: left;
+  margin-left: 20px;
+  margin-top: 20px;
+}
+
+.left_links{
+  text-align: left;
+  margin-left: 30px;
+  padding: 0 7px 0 7px;
+}
+
+.right_header{
+
+  text-align: left;
+  margin-left: 20px;
+  margin-top: 20px;
+  margin-right: 10px;
+}
+
+.right_links{
+  text-align: left;
+  margin-left: 30px;
+  padding: 0 7px 0 7px;
+}
+
+.links {
+   margin: 7px 0;
+}
+
+a {
+   text-decoration: none;
+}
+
+a:hover{
+  text-indent: 100%;
+  /*text-transform:uppercase;*/
+  /*font-size:12px;*/
+  color:black;
+ }
+
+ /*___________For tabs________________________________*/
+
+.container_js {
+  background-color:white;
+    box-shadow: 0.4em 0.4em 5px rgba(122,122,122,0.5);
+    /*margin: 10px 0px 10px 10px; */
+    /* Internet Explorer */
+  /*  filter:alpha(opacity=50);
+     CSS3 standard 
+    opacity:0.5; */
+
+  /*width: 800px;*/
+  margin: 2px;
+  padding: 1px;
+  border-radius:10px;  
+  -moz-border-radius:10px; 
+  -khtml-border-radius:10px;
+   background-color:aqua;
+
+}
+
+.menu_js {
+  text-align: left;
+  padding: 0;
+  margin: 8px 0;
+  width: 500px;
+
+}
+
+.menu_js li {
+  display: inline-block;
+  list-style: none;
+  padding: 0;
+  width: 4.5em;
+  text-align: center;
+}
+
+.menu_js li a {
+  text-decoration: none;
+  padding: 1em 0.8em;
+  color:#6B8BD3;
+
+}
+
+.content_js {
+  border-top: 0.1em solid blue;
+}
+
+.content_js p {
+  display: none;
+  padding-left: 10px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  text-align: left;
+  text-indent: 20px;
+
+}
+
+/*-----------styles for changing----------*/
+
+li a.active_js {
+  color: #545454;
+  border: 1px solid blue;
+  border-bottom: 1px solid aqua;
+  border-top-left-radius: 0.5em;
+  border-top-right-radius: 0.5em;
+}
+
+p.show_js {
+  display:block;
+}
+
+.hovered {
+  background-color: #EEEEEE;
+  cursor:pointer;
+  border-top-left-radius: 0.5em;
+  border-top-right-radius: 0.5em; 
+}
+ /*___________End for tabs________________________________*/
