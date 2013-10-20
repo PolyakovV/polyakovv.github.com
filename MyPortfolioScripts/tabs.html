@@ -35,7 +35,7 @@
 
 <script type="text/javascript">
 "use strict"
-//-----------------------crossbrowser indexOf method------------------------------//
+
 if (!Array.prototype.indexOf)
 {
   Array.prototype.indexOf = function(elt /*, from*/)
@@ -58,7 +58,6 @@ if (!Array.prototype.indexOf)
     return -1;
   };
 }
-//---------------------------------------------------------//
 
 	function hasClass (node, className) {
 		if (Object.prototype.toString.call(className) === '[object String]' && node.className.split(" ").indexOf(className) !==-1) {
@@ -193,6 +192,7 @@ bindEvent(tabCollection[i], "mouseout", disHoverImitation);
 	})();
 
 </script>
+
 <style type="text/css">
 /*___________For tabs________________________________*/
 html, body, div, span, object, iframe,
