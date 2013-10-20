@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<script type="text/javascript">
+
+		// Sync version
+		// document.write('<script src="http://code.jquery.com/jquery-1.10.2.min.js"></scri' + 'pt>')
+
+		// Async version
+		var script = document.createElement('script');
+		script.src = 'http://code.jquery.com/jquery-1.10.2.min.js'
+
+		document.documentElement.appendChild(script);
+	</script>
+
+	<script type="text/javascript">
+		// Sync - fine
+		// Async - reference error
+		console.log(jQuery);
+	</script>
+</head>
+<body>
+	<h1>Hello!</h1>
+</body>
+</html>

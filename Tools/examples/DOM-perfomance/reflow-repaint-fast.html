@@ -1,0 +1,25 @@
+<!DOCTYPE HTML>
+<html lang="en-US">
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+</head>
+<body>
+<div id="box"></div>
+<script type="text/javascript">
+	(function css_access () {
+		var box;
+		box = document.getElementById('box');
+		var display = getComputedStyle(box).display;
+		var height = box.offsetHeight;
+		var width = box.offsetWidth;
+		var top = box.offsetTop;
+
+		box.style.height = height + 1 + 'px';
+		box.style.width = width + 1 + 'px';
+		box.style.top = top + 1 + 'px';
+		box.style.display = display;
+	})();
+</script>
+</body>
+</html>

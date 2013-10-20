@@ -1,0 +1,65 @@
+<!DOCTYPE HTML>
+<html lang="en-US">
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+	<style type="text/css">
+		html, body, div, a, img {
+			border: 0;
+			margin: 0;
+			padding: 0;
+		}
+
+		#main {
+			float: left;
+		}
+
+		ul {
+			list-style: none;
+			background: #fff;
+			margin: 0;
+			padding: 0;
+		}
+
+		ul li {
+			outline: 1px solid #cecece;
+			padding: 1em;
+		}
+
+
+		ul li:hover ul {
+			display: block;
+		}
+
+		ul li ul {
+			display: none;
+			position: absolute;
+		}
+	</style>
+</head>
+<body>
+	<ul id="main">
+		<li><a href="/">Link</a></li>
+		<li>
+			Subcategories
+			<ul>
+				<li><a href="/">sub link</a></li>
+				<li><a href="/">ext links</a></li>
+				<li><a href="/">lorem</a></li>
+				<li><a href="/">dolor</a></li>
+			</ul>
+		</li>
+		<li>
+			<a href="/">nongo</a>
+		</li>
+		<li>
+			Subcat
+			<ul>
+				<li><a href="/">none</a></li>
+				<li><a href="/">papa</a></li>
+				<li><a href="/">mama</a></li>
+			</ul>
+		</li>
+	</ul>
+</body>
+</html>

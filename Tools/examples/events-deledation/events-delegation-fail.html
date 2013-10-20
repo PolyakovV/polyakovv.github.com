@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<script type="text/javascript">
+		function bind (obj, event_name, handler) {
+			var handler_wrapper = function (event) {
+				event = event || window.event;
+				if (!event.target && event.srcElement) {
+					event.target = event.srcElement;
+				}
+				return handler.call(obj, event);
+			};
+
+			if (obj.addEventListener) {
+				obj.addEventListener(event_name, handler_wrapper, false);
+			} else if (obj.attachEvent) {
+				obj.attachEvent('on' + event_name, handler_wrapper);
+			}
+			return handler_wrapper;
+		}
+
+		function closest (node, test_func, last_parent) {
+			while ( node && node !== last_parent ) {
+				if ( test_func(node) ) {
+					return node;
+				}
+				node = node.parentNode;
+			}
+		}
+
+		// Returns closest link node of the parents, if any
+		function isLink (node) {
+			return closest(node, function (node) {
+				return node.nodeName === 'A' && node.href;
+			});
+		}
+
+		function prevDef(event) {
+			if (event.preventDefault) {
+				event.preventDefault;
+			} else {
+				event.returnValue = false;
+			}
+		}
+
+		function stopPropagation (event) {
+			if (event.stopPropagation) {
+				event.stopPropagation();
+			} else {
+				event.cancelBubble = true;
+			}
+		}
+
+		// Delegation
+		bind(document.documentElement, 'click', function (event) {
+			var target = event.target;
+
+			if (isLink(target)) {
+				prevDef(event);
+				console.log('Link Clicked!!!!');
+			}
+		});
+
+		// some arbitrary code
+		bind(window, 'load', function () {
+			bind(document.body, 'click', function (event) {
+				stopPropagation(event);
+				console.log('This is my plugin, and i stop all event propagation, because, I don\'t know difference between default action and propagation');
+			});
+		});
+	</script>
+</head>
+<body>
+<div class="outer">
+	<div class="inner">
+		<a href="#nogo">This is link</a>
+	</div>
+</div>
+</body>
+</html>

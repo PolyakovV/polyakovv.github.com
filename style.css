@@ -52,7 +52,7 @@ body {
 .right   
 {  
   /*visibility: hidden;*/
-  display:none;
+  /*display:none;*/
   float: right;   
   width: 200px;  
   margin: 10px 0px 0px 0px;  

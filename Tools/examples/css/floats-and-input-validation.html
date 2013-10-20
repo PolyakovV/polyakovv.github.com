@@ -1,0 +1,79 @@
+<!DOCTYPE HTML>
+<html lang="en-US">
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+	<style type="text/css">
+		* {
+			margin: 0;
+			padding: 0;
+			border: 0;
+		}
+
+		div {
+			background: rgba(0, 0, 0, .1);
+		}
+
+		.side.left {
+			float: left;
+			height: 100px;
+			position: relative;
+			z-index: 15;
+			background: red;
+		}
+
+		.side.right {
+			float: right;
+			height: 200px;
+			position: relative;
+			z-index: 15;
+			background: blue;
+		}
+
+		.middle {
+			overflow: hidden;
+			height: 400px;
+			position: relative;
+			z-index: 10;
+			background: green
+		}
+
+			.middle img {
+				vertical-align: middle;
+			}
+
+
+		#wrapper {
+			width: 80%;
+			background: yellow;
+			margin: 0 auto;
+		}
+
+
+		.text.centered {
+			text-align: center;
+		}
+	</style>
+</head>
+<body>
+	<div id="wrapper">
+		<div class="side left">
+			<input type="text" id="ddd">
+		</div>
+		<div class="side right">right col</div>
+		<div class="middle">
+			<div class="text centered"><a href="#"><img src="http://upload.wikimedia.org/wikipedia/commons/thumb/5/52/Liliumbulbiferumflowertop.jpg/220px-Liliumbulbiferumflowertop.jpg" width="120" alt="">Купить машину</a>
+						<a href="#">Important link</a></div>
+		</div>
+	</div>
+
+	<script type="text/javascript">
+		var input;
+
+		input = document.getElementById('ddd');
+		input.onkeyup = function () {
+			this.value = this.value.replace(/\D/g, '');
+		}
+	</script>
+</body>
+</html>

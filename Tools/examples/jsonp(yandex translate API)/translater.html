@@ -1,0 +1,53 @@
+<html>
+<head>
+	<title></title>
+	<meta charset="utf-8" />
+	<script src="http://code.jquery.com/jquery-1.10.2.js"></script>
+	<script type="text/javascript">
+		var key = "trnsl.1.1.20130512T104455Z.8a0ed400b0d249ba.48af47e72f40c8991e4185556b825273d104af68";
+		var CALLBACK = 'processResponse' + (new Date()).getTime();
+		var KEY_TIMEOUT = 500;
+		var requestScriptClass = 'api-request';
+
+		window[CALLBACK] = function (response) {
+			$('textarea').eq(1).val(response.text[0])
+		}
+
+		function cleanRequestScripts() {
+			$('.' + requestScriptClass).remove();
+		}
+		
+		function sendTranslateRequest (text) {
+			var url = 'https://translate.yandex.net/api/v1.5/tr.json/translate?';
+			var script;
+
+			url += ('key=' + key);
+			url += ('&text=' + text);
+			url += ('&lang=ru-en');
+			url += ('&callback=' + CALLBACK);
+
+			script = document.createElement('script');
+			script.src = url;
+			script.className = requestScriptClass;
+			cleanRequestScripts();
+			document.querySelector('head').appendChild(script);	
+		};
+
+		$(function () {
+			var timeout;
+
+			$('textarea').eq(0).keyup(function () {
+				var textToStranslate = this.value;
+				clearTimeout(timeout);
+				timeout = setTimeout(function () {
+					sendTranslateRequest(textToStranslate);
+				}, KEY_TIMEOUT);
+			});
+		})
+	</script>
+</head>
+<body>
+<textarea placehlder="Русский"></textarea>
+<textarea placehlder="English"></textarea>
+</body>
+</html>

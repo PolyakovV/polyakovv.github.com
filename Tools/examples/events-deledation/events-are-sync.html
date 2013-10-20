@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+<div class="outer">
+	<div class="inner">
+		<a href="#nogo">This is link</a>
+	</div>
+</div>
+<script type="text/javascript">
+	function bind (obj, event_name, handler) {
+		var handler_wrapper = function (event) {
+			event = event || window.event;
+			if (!event.target && event.srcElement) {
+				event.target = event.srcElement;
+			}
+			return handler.call(obj, event);
+		};
+
+		if (obj.addEventListener) {
+			obj.addEventListener(event_name, handler_wrapper, false);
+		} else if (obj.attachEvent) {
+			obj.attachEvent('on' + event_name, handler_wrapper);
+		}
+		return handler_wrapper;
+	}
+
+	function wait(sec) {
+		var now = Date.now();
+		while(Date.now() < now + sec * 1000);
+	}
+
+
+	bind(document.querySelector('.outer'), 'click', function () {
+		document.documentElement.style.background = 'green';
+	});
+
+	bind(document.querySelector('a'), 'click', function () {
+		wait(5);
+	});
+</script>
+</body>
+</html>

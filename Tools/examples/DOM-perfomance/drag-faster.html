@@ -1,0 +1,86 @@
+<!DOCTYPE HTML>
+<html lang="en-US">
+<head>
+	<meta charset="UTF-8">
+	<title>Random box move</title>
+	<style type="text/css">
+		* {
+			margin: 0;
+			padding: 0;
+			border: 0;
+		}
+
+		html, body {
+			width: 90%;
+			height: 90%;
+		}
+
+		body {
+			border: 1px solid #ccc;
+		}
+
+		#box {
+			border: 1px solid red;
+			position: absolute;
+		}
+	</style>
+	<script type="text/javascript">
+		'use strict';
+		window.onload = function run_onload() {
+			var box = document.getElementById('box'),
+				body = document.body;
+
+			function rand (num) {
+				return Math.round( Math.random() * num );
+			}
+
+			box.style.width = 100 + rand(100) + 'px';
+			box.style.height = 100 + rand(100) + 'px';
+			box.onmousedown = function box_mousedown (event) {
+				var event = event || window.event,
+					click_event,
+					click_x,
+					click_y,
+					left_pos,
+					top_pos;
+
+				click_event = event;
+				if (event.preventDefault) event.preventDefault();
+				event.returnValue = false;
+				click_x = click_event.clientX;
+				click_y = click_event.clientY;
+				left_pos = box.offsetLeft;
+				top_pos = box.offsetTop;
+				// move box
+				body.onmousemove = function box_mousemove (event) {
+					var event = event || window.event;
+					// move horizontal
+					if (event.clientX - click_x + left_pos > document.body.offsetWidth - box.offsetWidth) {
+						box.style.left = document.body.offsetWidth - box.offsetWidth + 'px';
+					} else if (event.clientX - click_x + left_pos < 0) {
+						box.style.left = 0 + 'px';
+					} else {
+						box.style.left = event.clientX - click_x + left_pos + 'px';
+					}
+
+					// move vertical
+					if (event.clientY - click_y + top_pos > document.body.offsetHeight - box.offsetHeight) {
+						box.style.top = document.body.offsetHeight - box.offsetHeight + 'px';
+					} else if (event.clientY - click_y + top_pos < 0) {
+						box.style.top = 0 + 'px';
+					} else {
+						box.style.top = event.clientY - click_y + top_pos + 'px';
+					}
+				};
+				body.onmouseup = function box_mouseup (event) {
+					body.onmousemove = null;
+					body.onmouseup = null;
+				};
+			}
+		}
+	</script>
+</head>
+<body>
+<div id="box"></div>
+</body>
+</html>
