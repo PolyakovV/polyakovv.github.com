@@ -1,15 +1,18 @@
 
+//var productURL = window.location.host + '/JSON/groups.json';
+
+ 
+jQuery(document).ready(function () { 
+
 var catalogCont = $('.catalog');
 var loader = $('.loader');
 var goodsCont = $('.content .goods');
 var cartMini = $('.basket');
 var popup = $('.popup_wrap');
 var productURL ='JSON/groups.json';
-//var productURL = window.location.host + '/JSON/groups.json';
+jQuery(document).trigger('startInit');
 
-
- 
-jQuery(document).ready(function () {  jQuery(document).trigger('startInit')});
+});
 
 
 
