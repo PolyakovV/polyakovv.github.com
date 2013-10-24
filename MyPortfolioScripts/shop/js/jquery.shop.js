@@ -4,8 +4,8 @@ var loader = $('.loader');
 var goodsCont = $('.content .goods');
 var cartMini = $('.basket');
 var popup = $('.popup_wrap');
-var productURL = 'JSON/groups.json';
-
+var productURL = window.location.href + 'JSON/groups.json';
+ 
 function openGroupsItems(event) 
 { 
 console.log(event.target.className);
