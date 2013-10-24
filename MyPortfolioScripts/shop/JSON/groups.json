@@ -1,0 +1,30 @@
+[{      "group_id": 0,
+        "name": "Перфораторы",
+        "file": "perforators.json",
+        "class": "perforators"
+
+},
+{       "group_id": 1,
+        "name": "Дрели",
+        "file": "drills.json",
+        "class": "drills"
+
+},
+{      "group_id": 2,
+        "name": "Лобзики",
+        "file": "jigsaws.json",
+        "class": "jigsaws"
+
+},
+{      "group_id": 3,
+        "name": "Пилы",
+        "file": "saws.json",
+        "class": "saws"
+
+},
+{      "group_id": 4,
+        "name": "Болгарки",
+        "file": "angleGrinders.json",
+        "class": "angleGrinders"
+
+}]
