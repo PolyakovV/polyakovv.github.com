@@ -6,6 +6,10 @@ var cartMini = $('.basket');
 var popup = $('.popup_wrap');
 var productURL = window.location.href + 'JSON/groups.json';
  
+jQuery(document).ready(function () { genGroupsList(productURL);  });
+
+
+
 function openGroupsItems(event) 
 { 
 console.log(event.target.className);
@@ -17,7 +21,7 @@ $(document).on('groupsReady', function(){
     }
     );
 
-function genGropsList(url) { // получение списка групп
+function genGroupsList(url) { // получение списка групп
     $.getJSON(url, function(data) {
         var items = [];
         $.each(data, function(key, val) { // формирование списка
@@ -32,7 +36,7 @@ function genGropsList(url) { // получение списка групп
     });
 
 }
-genGropsList(productURL);
+
 
 
 
