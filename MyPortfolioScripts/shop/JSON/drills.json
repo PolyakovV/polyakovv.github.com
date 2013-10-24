@@ -1,0 +1,23 @@
+[{
+        "item_id": 34,
+        "name": "Дрель ударная",
+        "brand": "Bosch",
+        "modelName": "PSB 750",
+        "qty": 23,
+        "price": 978
+}, {
+        "item_id": 35,
+        "name": "Дрель",
+        "brand": "Фиолент",
+        "modelName": "ДР-1200",
+        "qty": 67,
+        "price": 753
+}, {
+        "item_id": 36,
+        "name": "Дрель ударная",
+        "brand": "EINHELL",
+        "modelName": "Blue BT-ID 650 E",
+        "qty": 27,
+        "price": 325
+}]
+
