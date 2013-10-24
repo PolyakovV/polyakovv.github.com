@@ -1,0 +1,22 @@
+[{
+        "item_id": 0,
+        "name": "Перфоратор",
+        "brand": "Makita",
+        "modelName": "HR 1830",
+        "qty": 25,
+        "price": 1311
+}, {
+        "item_id": 1,
+        "name": "Перфоратор бочковой",
+        "brand": "Фиолент",
+        "modelName": "ПЗ 1200",
+        "qty": 11,
+        "price": 753
+}, {
+        "item_id": 2,
+        "name": "Перфоратор",
+        "brand": "EINHELL",
+        "modelName": "RT-RH 26",
+        "qty": 7,
+        "price": 1256
+}]
