@@ -30,6 +30,7 @@ function genGroupsList(url) { // получение списка групп
         var items = [];
         $.each(data, function(key, val) { // формирование списка
             items.push('<li groupId="' + key + '" class=' + val.class + '>' + val.name + '</li>');
+            console.log('<li groupId="' + key + '" class=' + val.class + '>' + val.name + '</li>');
         });
 
         $('<ul/>', {
