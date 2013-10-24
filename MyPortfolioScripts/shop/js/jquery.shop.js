@@ -41,7 +41,7 @@ function genGroupsList(url) { // получение списка групп
 
 }
 
-jQuery(document).on('startInit', genGroupsList);
+jQuery(document).on('startInit', genGroupsList(productURL));
 
 
 
