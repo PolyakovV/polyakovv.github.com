@@ -4,9 +4,12 @@ var loader = $('.loader');
 var goodsCont = $('.content .goods');
 var cartMini = $('.basket');
 var popup = $('.popup_wrap');
-var productURL = window.location.href + 'JSON/groups.json';
+var productURL ='JSON/groups.json';
+//var productURL = window.location.href + 'JSON/groups.json';
+
+
  
-jQuery(document).ready(function () { genGroupsList(productURL);  });
+jQuery(document).ready(function () {  jQuery(document).trigger('startInit')});
 
 
 
@@ -22,6 +25,7 @@ $(document).on('groupsReady', function(){
     );
 
 function genGroupsList(url) { // получение списка групп
+    console.log(url);
     $.getJSON(url, function(data) {
         var items = [];
         $.each(data, function(key, val) { // формирование списка
@@ -37,7 +41,7 @@ function genGroupsList(url) { // получение списка групп
 
 }
 
-
+jQuery(document).on('startInit', genGroupsList);
 
 
 
