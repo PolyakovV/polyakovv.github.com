@@ -18,7 +18,7 @@ function genProductList(url){
      html: items.join('')
   }).appendTo(catalog);
 });
-
+console.log(url);
 }
 genProductList(productURL);
 
