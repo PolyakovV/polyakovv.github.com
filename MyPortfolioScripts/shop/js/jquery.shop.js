@@ -28,7 +28,6 @@ var mediator = (function() {
 
   var subscriptions = {};
 
-
   return {
     //event   - событие
     //handler - собственно  обработчик
@@ -137,7 +136,14 @@ mediator.subscribe('tableReady', function() {
   }); // проверено работает сортировка
 })
 
+mediator.subscribe('basketReady', function() { // Навешивает обработчик кликов при готовности корзины
+  $('.buttDel').on('click', function(event) {
+    //console.log('del');
+    delFromBasket(event.target.name, event.target.id, basket);
+  })
+});
 
+//
 
 mediator.subscribe('groupsReady', function() { // Навешивает обработчик кликов при готовности списка групп
   $('.groups li').on('click', openGroupsItems);
@@ -146,6 +152,10 @@ mediator.subscribe('groupsReady', function() { // Навешивает обра�
 
 
 mediator.subscribe('addToBasket', function() {
+  genBasket(cart, basket); // вызвать и создать корзину
+})
+
+mediator.subscribe('delFromBasket', function() {
   genBasket(cart, basket); // вызвать и создать корзину
 })
 
@@ -189,17 +199,13 @@ function genTableList(node, JSONFileUrl) {
 }
 
 function genGroupsList(url) { // получение списка групп
-  //console.log(url);
   $.getJSON(url, function(data) {
     currentGroup = data[0].class;
-    console.log(currentGroup);
     var items = [];
     $.each(data, function(key, val) { // формирование списка
       items.push('<li groupId="' + key + '" class=' + val.class + '>' + val.name + '</li>');
-      //console.log('<li groupId="' + key + '" class=' + val.class + '>' + val.name + '</li>');
     });
 
-    //console.log(currentGroup);
     $('<ul/>', {
       'class': 'groups',
       html: items.join('')
@@ -234,10 +240,20 @@ function addToBasket(currentGroup, id, qty) { // сохраняет в корз�
   mediator.trigger('addToBasket'); //console.log(obj);
 }
 
-function genBasket(node, basketObjs) { // генерирует корзину console.log(basket);
-  var z = basketObjs.length;
-  waitSign.show();
+function delFromBasket( group, id, basketObjs){
+  console.log('Delete:' + group + ' id:'+ id);
+  for (var i = 0; i < basketObjs.length; i++) {
 
+     if ((basketObjs[i].currentGroup == group)&&(basketObjs[i].id == id)) {basketObjs.splice(i,1);console.log('Delete');}
+  };
+
+  mediator.trigger('delFromBasket');
+}
+
+function genBasket(node, basketObjs) { // генерирует корзину console.log(basket);
+  var z = basketObjs.length; // берем кол-во 
+  waitSign.show();
+   if (z===0) {$('.basketGoods').remove();mediator.trigger('basketReady');return;}
   var items = []; // место хранения HTML кода(буферизация, что б не трогать ДОМ)
   items.push('<colgroup><COL width="220px"><COL width="120px"><COL width="100px">' +
     '<COL width="100px"><COL width="100px"><COL width="40px"><COL width="40px"></colgroup>' +
@@ -249,7 +265,6 @@ function genBasket(node, basketObjs) { // генерирует корзину co
     '<th  align="center" >Шт</th>' +
     '<th  align="center" >Оформить</th>' +
     '</tr></thead>');
-  //console.log(items);
 
   function getDataFromJSONFile(group, id, qty) { // достает из файлов - баз параметры по Id
     var obj = {
@@ -271,8 +286,8 @@ function genBasket(node, basketObjs) { // генерирует корзину co
             '<td>' + val.price + '</td>' +
             '<td>' + val.qty + '</td>' +
             '<td>' + qty + '</td>' +
-            '<td>Delete</td></tr>');
-          z = z - 1;
+            '<td><button  name="'+ group + '"" class="buttDel"' + ' id=' + val.item_id + '>Del</buttton></td></tr>');
+          z = z - 1; 
           if (z === 0) {
             mediator.trigger('DataFromJSONFileAdded');
           }
@@ -293,10 +308,9 @@ function genBasket(node, basketObjs) { // генерирует корзину co
       'class': 'basketGoods',
       html: items.join('')
     }).appendTo(node);
-    waitSign.hide();
     mediator.trigger('basketReady');
+    waitSign.hide();
     items = [];
-
   })
 
 } // end of genBasket
