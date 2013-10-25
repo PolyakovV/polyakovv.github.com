@@ -36,6 +36,7 @@ padding: 0 10px 0 10px;
 
 .basket {
 position: fixed;
+z-index:5;
 bottom: 0;
 right: 20px;
 /*background: url(minicart.png) no-repeat #FFFFFF;*/
