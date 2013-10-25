@@ -2,6 +2,21 @@
   border solid red 1px;
 
 }
+
+.basket {
+position: fixed;
+bottom: 0;
+right: 0;
+background: url(minicart.png) no-repeat #FFFFFF;
+background-position: left center;
+border: 2px solid #DDDDDD;
+border-radius: 10px;
+margin: 20px;
+padding: 10px;
+display: inline-block;
+cursor: pointer;
+}
+
 /* tables */
 table.tableGoods {
 font-family:arial;
