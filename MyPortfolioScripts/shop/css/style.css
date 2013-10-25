@@ -1,13 +1,30 @@
-.tableGoods{
-  border solid red 1px;
+.tableGoods {
+border-top: 2px solid #DDDDDD;
+border-bottom: 2px solid #DDDDDD;
+margin: auto;
+}
 
+table {
+border-collapse: collapse;
+border-spacing: 0;
+}
+
+.catalog {
+position: absolute;
+top: 90px;
+left: 0;
+border-top: 2px solid #DDDDDD;
+border-right: 2px solid #DDDDDD;
+border-bottom: 2px solid #DDDDDD;
+border-radius: 0 10px 10px 0;
+padding: 0 10px 0 10px;
 }
 
 .basket {
 position: fixed;
 bottom: 0;
 right: 0;
-background: url(minicart.png) no-repeat #FFFFFF;
+/*background: url(minicart.png) no-repeat #FFFFFF;*/
 background-position: left center;
 border: 2px solid #DDDDDD;
 border-radius: 10px;
