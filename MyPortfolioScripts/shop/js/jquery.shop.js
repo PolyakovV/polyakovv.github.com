@@ -247,6 +247,11 @@ function delFromBasket( group, id, basketObjs){
      if ((basketObjs[i].currentGroup == group)&&(basketObjs[i].id == id)) {basketObjs.splice(i,1);console.log('Delete');}
   };
 
+   var cookieDate = new Date(new Date().getTime() + 1000 * 60 * 60 * 24 * COOKIE_LIVETIME_DAYS).toUTCString();
+  var str;
+  // console.log(str);
+  str = JSON.stringify(basket);
+  setCookie('goods', str, cookieDate, document.location.pathname, document.location.host, false);
   mediator.trigger('delFromBasket');
 }
 
