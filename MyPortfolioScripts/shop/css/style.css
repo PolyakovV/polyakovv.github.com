@@ -13,8 +13,8 @@ text-align: center;
 }
 
 .tableGoods {
-border-top: 2px solid #DDDDDD;
-border-bottom: 2px solid #DDDDDD;
+border: 2px solid #DDDDDD;
+/*border-bottom: 2px solid #DDDDDD;*/
 margin: auto;
 }
 
@@ -37,7 +37,7 @@ padding: 0 10px 0 10px;
 .basket {
 position: fixed;
 bottom: 0;
-right: 0;
+right: 20px;
 /*background: url(minicart.png) no-repeat #FFFFFF;*/
 background-position: left center;
 border: 2px solid #DDDDDD;
@@ -54,7 +54,7 @@ font-family:arial;
 background-color: #CDCDCD;
 margin:10px 0pt 15px;
 font-size: 8pt;
-/*width: 100%;*/
+width: 100%;
 text-align: left;
 }
 table.tableGoods thead tr th{
