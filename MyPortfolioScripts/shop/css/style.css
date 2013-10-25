@@ -1,3 +1,17 @@
+.content {
+position: relative;
+margin-left: 250px;
+margin-top: 25px;
+margin-right: 20px;
+margin-bottom: 20px;
+min-height: 1000px;
+padding: 20px;
+padding-top: 40px;
+border-radius: 10px;
+border: 2px solid #DDDDDD;
+text-align: center;
+}
+
 .tableGoods {
 border-top: 2px solid #DDDDDD;
 border-bottom: 2px solid #DDDDDD;
