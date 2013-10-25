@@ -8,7 +8,7 @@ font-family:arial;
 background-color: #CDCDCD;
 margin:10px 0pt 15px;
 font-size: 8pt;
-width: 100%;
+/*width: 100%;*/
 text-align: left;
 }
 table.tableGoods thead tr th{
@@ -36,7 +36,7 @@ table.tableGoods thead tr .headerSortUp {
 background-image: url(asc.gif);
 }
 table.tableGoods thead tr .headerSortDown {
-background-image: url(desc.gif);
+/*background-image: url(desc.gif);*/
 }
 table.tableGoods thead tr .headerSortDown, table.tableGoods thead tr .headerSortUp {
 background-color: #8dbdd8;
