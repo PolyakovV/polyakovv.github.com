@@ -1,0 +1,30 @@
+[{
+        "item_id": 74,
+        "name": "Эл.лобзик",
+        "brand": "Зенит",
+        "modelName": "ЗПЛ-1050 М",
+        "qty": 45,
+        "price": 307
+}, {
+        "item_id": 75,
+        "name": "Эл.лобзик",
+        "brand": "Элпром",
+        "modelName": "ПЛЭ 100",
+        "qty": 32,
+        "price": 205
+}, {
+        "item_id": 76,
+        "name": "Эл.лобзик",
+        "brand": "Bosch",
+        "modelName": "PST 700E+",
+        "qty": 27,
+        "price": 629
+},{
+        "item_id": 77,
+        "name": "Эл.лобзик",
+        "brand": "Makita ",
+        "modelName": "M4326",
+        "qty": 34,
+        "price": 789
+}]
+

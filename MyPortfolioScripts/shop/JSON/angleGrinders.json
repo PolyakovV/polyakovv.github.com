@@ -1,0 +1,30 @@
+[{
+        "item_id": 44,
+        "name": "Болгарка",
+        "brand": "Фиолент",
+        "modelName": "МШУ2-9-125Э",
+        "qty": 54,
+        "price": 780
+}, {
+        "item_id": 45,
+        "name": "Болгарка",
+        "brand": "Ferm",
+        "modelName": "FAG-125N",
+        "qty": 27,
+        "price": 206
+}, {
+        "item_id": 46,
+        "name": "Болгарка",
+        "brand": "Forte",
+        "modelName": "EG24-230SN",
+        "qty": 711,
+        "price": 302
+}, {
+        "item_id": 47,
+        "name": "Болгарка",
+        "brand": "Bosch",
+        "modelName": "PEX 220 A",
+        "qty": 14,
+        "price": 769
+}]
+

@@ -1,0 +1,30 @@
+[{
+        "item_id": 94,
+        "name": "Эл.пила",
+        "brand": "Makita ",
+        "modelName": "MLS100",
+        "qty": 5,
+        "price": 2069
+}, {
+        "item_id": 95,
+        "name": "Эл.пила",
+        "brand": "DWT",
+        "modelName": "KGS12-190",
+        "qty": 20,
+        "price": 831
+}, {
+        "item_id": 96,
+        "name": "Эл.пила",
+        "brand": "Bosch",
+        "modelName": "GKS 190",
+        "qty": 7,
+        "price": 1399
+},{
+        "item_id": 97,
+        "name": "Эл.пила",
+        "brand": "AEG",
+        "modelName": "TS-250K",
+        "qty": 11,
+        "price": 6875
+}]
+
