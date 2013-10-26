@@ -1,3 +1,12 @@
+.active {
+border: 2px solid #DDDDDD;
+background-color: aqua;	
+}
+
+.groups{
+	margine:10px 10px 10px 10px;
+}
+
 .content {
 position: relative;
 margin-left: 250px;
