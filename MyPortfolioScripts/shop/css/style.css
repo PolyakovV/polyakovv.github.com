@@ -1,5 +1,5 @@
 .currentGroup {
-border: 2px solid black;
+border: 2px solid aqua;
 background-color: aqua;	
 }
 
@@ -29,13 +29,13 @@ min-height: 1000px;
 padding: 20px;
 padding-top: 40px;
 border-radius: 10px;
-border: 2px solid black;
+border: 2px solid aqua;
 text-align: center;
 }
 
 .tableGoods {
-border: 2px solid black;
-/*border-bottom: 2px solid black;*/
+border: 2px solid aqua;
+/*border-bottom: 2px solid aqua;*/
 margin: auto;
 }
 
@@ -48,9 +48,9 @@ border-spacing: 0;
 position: absolute;
 top: 90px;
 left: 0;
-border-top: 2px solid black;
-border-right: 2px solid black;
-border-bottom: 2px solid black;
+border-top: 2px solid aqua;
+border-right: 2px solid aqua;
+border-bottom: 2px solid aqua;
 border-radius: 0 10px 10px 0;
 padding: 0 10px 0 10px;
 cursor: pointer;
@@ -61,9 +61,8 @@ position: fixed;
 z-index:5;
 bottom: 0;
 right: 20px;
-/*background: url(minicart.png) no-repeat #FFFFFF;*/
 background-position: left center;
-border: 2px solid black;
+border: 2px solid aqua;
 border-radius: 10px;
 margin: 20px;
 padding: 10px;
