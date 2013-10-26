@@ -140,11 +140,14 @@ mediator.subscribe('tableReady', function() {
 })
 
 mediator.subscribe('basketReady', function() {
+  if ($('.basketGoods').length !== 0) {
     $(".basketGoods").sorter({
-    sortList: [ [0, 0] ]
-  }); // сортировка
+      sortList: [
+        [0, 0]
+      ]
+    }); // сортировка
+  }
 })
-
 mediator.subscribe('basketReady', function() { // Навешивает обработчик кликов при готовности корзины
   $('.clearBasket').on('click', function(event) {
    clearBasket();
