@@ -14,7 +14,7 @@ background-color: aqua;
 .loader{
 position: fixed;
 z-index: 11;
-bottom: 300px;
+bottom: 500px;
 left: 600px;
 }
 
