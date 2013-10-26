@@ -72,7 +72,6 @@ var mediator = (function() {
 
   function setCookie(name, value, expires, path, domain, secure) {
     var str = name + "=" + escape(value) +
-    //var str = name + "=" + value +
     ((expires) ? "; expires=" + expires : "") +
       ((path) ? "; path=" + path : "") +
       ((domain) ? "; domain=" + domain : "") +
@@ -117,7 +116,7 @@ mediator.subscribe('init', function() {
 
 });
 //_________________________________________________
-function openGroupsItems(event) // вызывается при клике на группу, открывает список в таблице
+function openGroupsItems(event) // вызывается при клике на группу, открывает список в таблице - handler - событие см.снизу
 {
   genTableList(container, 'JSON/' + event.target.id + '.json'); // генерируем таблицу товаров группы
   currentGroup = event.target.id;  // текущая группа
@@ -148,6 +147,7 @@ mediator.subscribe('basketReady', function() {
     }); // сортировка
   }
 })
+
 mediator.subscribe('basketReady', function() { // Навешивает обработчик кликов при готовности корзины
   $('.clearBasket').on('click', function(event) {
    clearBasket();
@@ -172,6 +172,7 @@ mediator.subscribe('addToBasket', function() { // когда добавлен т
 mediator.subscribe('delFromBasket', function() {
   genBasket(cart, basket); // вызвать и создать корзину
 })
+
 //_________________________________________________
 function genTableList(node, JSONFileUrl) {
   waitSign.show();
@@ -232,7 +233,7 @@ function genGroupsList(url) { // получение списка групп
 //_________________________________________________
 genGroupsList(productURL);  // сгенерировать при старте список групп
 //_________________________________________________
-function getReservItemsFromCookie() {
+function getReservItemsFromCookie() {  // угадайте, что :)
   var obj;
   var str;
   str = getCookie('goods');
@@ -244,7 +245,7 @@ function addToBasket(currentGroup, id, qty) { // сохраняет и доба�
   var cookieDate = new Date(new Date().getTime() + 1000 * 60 * 60 * 24 * COOKIE_LIVETIME_DAYS).toUTCString();
   var str;
   str = '{ "currentGroup":"' + currentGroup + '","id":' + id + ',"qty":' + qty + '}';
-  waitSign.show();
+  waitSign.show(); // значек - ждем
   var obj = jQuery.parseJSON(str); // JSON в объект
   basket.push(obj);
   // console.log(str);
