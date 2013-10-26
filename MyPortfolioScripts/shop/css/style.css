@@ -1,10 +1,10 @@
-.active {
+.currentGroup {
 border: 2px solid #DDDDDD;
 background-color: aqua;	
 }
 
 .groups{
-	margine:10px 10px 10px 10px;
+	margin: 30px 30px 30px 10px;
 }
 
 .content {
