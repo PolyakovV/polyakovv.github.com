@@ -11,6 +11,14 @@ background-color: aqua;
 	margin: 30px 30px 30px 10px;
 }
 
+.loader{
+position: fixed;
+z-index:6;
+bottom: top;
+right: 20px;
+}
+
+
 .content {
 position: relative;
 margin-left: 250px;
