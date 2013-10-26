@@ -1,3 +1,4 @@
+'use strict';
 var COOKIE_LIVETIME_DAYS = 30;
 var catalogCont = $('.catalog');
 var container = $('.content');
@@ -103,24 +104,27 @@ var mediator = (function() {
     return (setStr);
 
   }
-mediator.subscribe('init', function() {
-  var obj = getReservItemsFromCookie();
-  if (obj !== null) {
+
+mediator.subscribe('init', function() { 
+  var obj = getReservItemsFromCookie();  //  читаем куки
+  if (obj !== null) {  // - если есть кладем в корзину
     basket.push(obj);
-    basket = flatten(basket);
+    basket = flatten(basket);  // делаем одномерный массив объектов
     genBasket(cart, basket); // вызвать и создать корзину
   } // если есть куки - прочитать в корзину
   waitSign.hide(); // значек в период ожидания
   console.log('Init Ok');
 
 });
-
+//_________________________________________________
 function openGroupsItems(event) // вызывается при клике на группу, открывает список в таблице
 {
-  genTableList(container, 'JSON/' + event.target.className + '.json');
-  currentGroup = event.target.className;
+  genTableList(container, 'JSON/' + event.target.id + '.json'); // генерируем таблицу товаров группы
+  currentGroup = event.target.id;  // текущая группа
+  $('[id='+event.target.id+']').addClass('currentGroup');
+  $('[id='+event.target.id+']').siblings().removeClass('currentGroup');
 };
-
+//_________________________________________________
 
 mediator.subscribe('tableReady', function() { // Навешивает обработчик кликов при готовности таблицы
   $('.butt').on('click', function(event) {
@@ -128,22 +132,29 @@ mediator.subscribe('tableReady', function() { // Навешивает обраб
   })
 });
 
+
 mediator.subscribe('tableReady', function() {
   $(".tableGoods").sorter({
-    sortList: [
-      [0, 0]
-    ]
-  }); // проверено работает сортировка
+    sortList: [ [0, 0] ]
+  }); // сортировка
+})
+
+mediator.subscribe('basketReady', function() {
+    $(".basketGoods").sorter({
+    sortList: [ [0, 0] ]
+  }); // сортировка
 })
 
 mediator.subscribe('basketReady', function() { // Навешивает обработчик кликов при готовности корзины
+  $('.clearBasket').on('click', function(event) {
+   clearBasket();
+   genBasket(cart, basket); // вызвать и создать корзину
+  })
   $('.buttDel').on('click', function(event) {
-    //console.log('del');
     delFromBasket(event.target.name, event.target.id, basket);
   })
 });
 
-//
 
 mediator.subscribe('groupsReady', function() { // Навешивает обработчик кликов при готовности списка групп
   $('.groups li').on('click', openGroupsItems);
@@ -151,14 +162,14 @@ mediator.subscribe('groupsReady', function() { // Навешивает обра�
 });
 
 
-mediator.subscribe('addToBasket', function() {
-  genBasket(cart, basket); // вызвать и создать корзину
+mediator.subscribe('addToBasket', function() { // когда добавлен товар в корзину
+  genBasket(cart, basket); // вызвать и/или создать/добавить в корзину в узел cart из объектов basket
 })
 
 mediator.subscribe('delFromBasket', function() {
   genBasket(cart, basket); // вызвать и создать корзину
 })
-
+//_________________________________________________
 function genTableList(node, JSONFileUrl) {
   waitSign.show();
   $.getJSON(JSONFileUrl, function(data) {
@@ -171,8 +182,8 @@ function genTableList(node, JSONFileUrl) {
       '<th align="left">Производитель</th>' +
       '<th  align="left" >Модель</th>' +
       '<th  align="left" >Цена,грн</th>' +
-      '<th  align="left" >Кол-во</th>' +
-      '<th  align="center" >Шт</th>' +
+      '<th  align="left" >На складе</th>' +
+      '<th  align="center" >Купить,шт</th>' +
       '<th  align="center" >Оформить</th>' +
       '</tr></thead>');
     $.each(data, function(key, val) { // формирование списка
@@ -197,28 +208,27 @@ function genTableList(node, JSONFileUrl) {
   });
 
 }
-
+//_________________________________________________
 function genGroupsList(url) { // получение списка групп
   $.getJSON(url, function(data) {
     currentGroup = data[0].class;
     var items = [];
     $.each(data, function(key, val) { // формирование списка
-      items.push('<li groupId="' + key + '" class=' + val.class + '>' + val.name + '</li>');
+      items.push('<li class="group" id=' + val.class + '>' + val.name + '</li>');
     });
 
     $('<ul/>', {
       'class': 'groups',
       html: items.join('')
     }).appendTo(catalogCont);
-
+    $('ul li.group').eq(0).addClass('currentGroup');
     mediator.trigger('groupsReady');
   });
 
 }
-
-genGroupsList(productURL);
-
-
+//_________________________________________________
+genGroupsList(productURL);  // сгенерировать при старте список групп
+//_________________________________________________
 function getReservItemsFromCookie() {
   var obj;
   var str;
@@ -226,39 +236,61 @@ function getReservItemsFromCookie() {
   var obj = jQuery.parseJSON(str);
   return obj;
 }
-
-
-function addToBasket(currentGroup, id, qty) { // сохраняет в корзине
+//_________________________________________________
+function addToBasket(currentGroup, id, qty) { // сохраняет и добавляет в корзину
   var cookieDate = new Date(new Date().getTime() + 1000 * 60 * 60 * 24 * COOKIE_LIVETIME_DAYS).toUTCString();
   var str;
   str = '{ "currentGroup":"' + currentGroup + '","id":' + id + ',"qty":' + qty + '}';
+  waitSign.show();
   var obj = jQuery.parseJSON(str); // JSON в объект
   basket.push(obj);
   // console.log(str);
   str = JSON.stringify(basket);
   setCookie('goods', str, cookieDate, document.location.pathname, document.location.host, false);
+  waitSign.hide();
   mediator.trigger('addToBasket'); //console.log(obj);
 }
-
-function delFromBasket( group, id, basketObjs){
-  console.log('Delete:' + group + ' id:'+ id);
+//_________________________________________________
+function delFromBasket(group, id, basketObjs) {  //удаляет из  корзины(и объекта и кукис) выбранный товар
+  var cookieDate = new Date(new Date().getTime() + 1000 * 60 * 60 * 24 * COOKIE_LIVETIME_DAYS).toUTCString();
+  var str;
+waitSign.show();
   for (var i = 0; i < basketObjs.length; i++) {
-
-     if ((basketObjs[i].currentGroup == group)&&(basketObjs[i].id == id)) {basketObjs.splice(i,1);console.log('Delete');}
+    if ((basketObjs[i].currentGroup == group) && (basketObjs[i].id == id)) {
+      basketObjs.splice(i, 1);
+      //console.log('Delete');
+    }
   };
 
-   var cookieDate = new Date(new Date().getTime() + 1000 * 60 * 60 * 24 * COOKIE_LIVETIME_DAYS).toUTCString();
-  var str;
-  // console.log(str);
   str = JSON.stringify(basket);
   setCookie('goods', str, cookieDate, document.location.pathname, document.location.host, false);
+  waitSign.hide();
   mediator.trigger('delFromBasket');
 }
 
+//_________________________________________________
+function clearBasket(group, id, basketObjs) {  //удаляет из  корзины(и объекта и кукис) выбранный товар
+  var cookieDate = new Date(new Date().getTime() + 1000 * 60 * 60 * 24 * COOKIE_LIVETIME_DAYS).toUTCString();
+  var str = [];
+   basket = [];
+  str = JSON.stringify(basket);
+  setCookie('goods', str, cookieDate, document.location.pathname, document.location.host, false);
+   waitSign.hide();
+  mediator.trigger('clearBasket');
+}
+
+//_________________________________________________
 function genBasket(node, basketObjs) { // генерирует корзину console.log(basket);
+  var summGoods=0;
+  var summPrices=0;
   var z = basketObjs.length; // берем кол-во 
   waitSign.show();
-   if (z===0) {$('.basketGoods').remove();mediator.trigger('basketReady');return;}
+  if (z === 0) {
+    $('.basketGoods').siblings().remove();
+    $('.basketGoods').remove();
+    mediator.trigger('basketReady');waitSign.hide();
+    return;
+  }
   var items = []; // место хранения HTML кода(буферизация, что б не трогать ДОМ)
   items.push('<colgroup><COL width="220px"><COL width="120px"><COL width="100px">' +
     '<COL width="100px"><COL width="100px"><COL width="40px"><COL width="40px"></colgroup>' +
@@ -266,24 +298,15 @@ function genBasket(node, basketObjs) { // генерирует корзину co
     '<th align="left">Производитель</th>' +
     '<th  align="left" >Модель</th>' +
     '<th  align="left" >Цена,грн</th>' +
-    '<th  align="left" >Кол-во</th>' +
-    '<th  align="center" >Шт</th>' +
+    '<th  align="left" >На складе</th>' +
+    '<th  align="center" >В корзине,шт</th>' +
     '<th  align="center" >Оформить</th>' +
     '</tr></thead>');
 
   function getDataFromJSONFile(group, id, qty) { // достает из файлов - баз параметры по Id
-    var obj = {
-      "item_id": "",
-      "name": "",
-      "brand": "",
-      "modelName": "",
-      "qty": "",
-      "price": ""
-    }
-
     $.getJSON("JSON/" + group + ".json", function(data) {
       $.each(data, function(key, val) {
-        if (id == val.item_id) {
+        if (id == val.item_id) { summGoods+=qty;summPrices+=qty*val.price;
           items.push('<tr itemsId="' + val.item_id + '" class="basketgoods">' +
             '<td>' + val.name + '</td>' +
             '<td>' + val.brand + '</td>' +
@@ -291,35 +314,33 @@ function genBasket(node, basketObjs) { // генерирует корзину co
             '<td>' + val.price + '</td>' +
             '<td>' + val.qty + '</td>' +
             '<td>' + qty + '</td>' +
-            '<td><button  name="'+ group + '"" class="buttDel"' + ' id=' + val.item_id + '>Del</buttton></td></tr>');
-          z = z - 1; 
+            '<td><button  name="' + group + '"" class="buttDel"' + ' id=' + val.item_id + '>Del</buttton></td></tr>');
+          z = z - 1;
           if (z === 0) {
             mediator.trigger('DataFromJSONFileAdded');
           }
         }
       });
     });
-
-    return obj;
-
   }
 
   for (var i = 0; i < basketObjs.length; i++) {
     getDataFromJSONFile(basketObjs[i].currentGroup, basketObjs[i].id, basketObjs[i].qty); // для каждого получаем данные
   }
   mediator.subscribe('DataFromJSONFileAdded', function() {
+    $('.basketGoods').siblings().remove();
     $('.basketGoods').remove(); // старую удаляем, если есть
     $('<table/>', {
       'class': 'basketGoods',
       html: items.join('')
     }).appendTo(node);
+    $('.basket').append('<span class="summ">Товаров '+ summGoods + ' шт, на сумму ' + summPrices +' грн</span><br>');
+    $('.basket').append('<button class="clearBasket">Очистить корзину</button>').append('<button>Оформить заказ</button>');
     mediator.trigger('basketReady');
     waitSign.hide();
     items = [];
   })
 
 } // end of genBasket
-
-
 
 mediator.trigger('init');
