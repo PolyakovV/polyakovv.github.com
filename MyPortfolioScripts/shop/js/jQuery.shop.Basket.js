@@ -133,7 +133,7 @@ function genBasket(node, basketObjs) { // генерирует корзину co
       });
     });
   }
-
+ 
   for (var i = 0; i < basketObjs.length; i++) {
     getDataFromJSONFile(basketObjs[i].currentGroup, basketObjs[i].id, basketObjs[i].qty); // для каждого получаем данные
   }
