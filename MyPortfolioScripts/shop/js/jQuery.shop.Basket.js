@@ -1,6 +1,14 @@
 ////////////////////////// Модуль корзины /////////////////////////////////
  (function(){
 
+function getReservItemsFromCookie() {  // угадайте, что :)
+  var obj;
+  var str;
+  str = getCookie('goods');
+  var obj = jQuery.parseJSON(str);
+  return obj;
+}
+
 mediator.subscribe('init', function() { 
   var obj = getReservItemsFromCookie();  //  читаем куки
   if (obj !== null) {  // - если есть кладем в корзину
@@ -154,6 +162,8 @@ function genBasket(node, basketObjs) { // генерирует корзину co
   })
 
 } // end of genBasket
+
+mediator.trigger('init');
 
 })(mediator, shop)
 ////////////////////////// end of basket module /////////////////////////////////

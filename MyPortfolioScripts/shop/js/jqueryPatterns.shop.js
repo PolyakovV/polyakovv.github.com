@@ -198,12 +198,5 @@ function genGroupsList(url, catCont) { // получение списка гру
 genGroupsList(shop().productURL, shop().catalogCont);  // сгенерировать при старте список групп
 
 //_________________________________________________
-function getReservItemsFromCookie() {  // угадайте, что :)
-  var obj;
-  var str;
-  str = getCookie('goods');
-  var obj = jQuery.parseJSON(str);
-  return obj;
-}
+
 //////// Basket was here ////// Cut it to file
-mediator.trigger('init');
