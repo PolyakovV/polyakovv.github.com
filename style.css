@@ -121,12 +121,13 @@ body {
 
   text-align: left;
   margin-left: 20px;
-  margin-top: 20px;
+ /* margin-top: 20px;*/
 }
 
 .left_links{
   text-align: left;
   margin-left: 30px;
+  margin-top: 20px;
   padding: 0 7px 0 7px;
 }
 
