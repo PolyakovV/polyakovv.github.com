@@ -199,7 +199,7 @@ a:hover{
 
 .menu_js li a {
   text-decoration: none;
-  padding: 1em 0.8em;
+padding: 1em 5px;
   color:#6B8BD3;
 
 }
@@ -230,6 +230,10 @@ li a.active_js {
 
 p.show_js {
   display:block;
+  font-size: 13pt;
+  line-height: 36px;
+  padding-right: 50px;
+  padding-left: 20px;
 
 }
 
