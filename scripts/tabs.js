@@ -117,15 +117,15 @@ if (!Array.prototype.indexOf)
 		} else {
 			event.returnValue = false;
 		}
-		var content = document.querySelectorAll(".content_js p");
+		var content = document.querySelectorAll(".content_js div");
 				 if(!hasClass(event.target, "active_js")) {
 				removeClass(document.querySelector(".active_js"), "active_js");
 				addClass(event.target, "active_js");
-				console.log(event.target.className);
+				//console.log(event.target.className);
 				 removeClass(document.querySelector(".hovered"), "hovered");
 				 for (var i = 0; i < content.length; i++) {
 				 	if (event.target.className.indexOf(content[i].className)>=0) {
-				 		console.log(event.target.className);
+				 		//console.log(event.target.className);
 				 	removeClass(document.querySelector(".show_js"), "show_js");
 				 	addClass(content[i], "show_js");
 			 	 }

@@ -208,7 +208,7 @@ padding: 1em 5px;
   border-top: 0.1em solid blue;
 }
 
-.content_js p {
+.content_js div {
   display: none;
   padding-left: 10px;
   padding-top: 20px;
@@ -228,7 +228,7 @@ li a.active_js {
   border-top-right-radius: 0.5em;
 }
 
-p.show_js {
+div.show_js {
   display:block;
   font-size: 13pt;
   line-height: 36px;
