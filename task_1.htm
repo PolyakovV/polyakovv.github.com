@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en" class="theme_red">
+<head>
+
+<meta charset="utf-8" />
+<title>Test Task</title>
+<style>
+.srStar {
+	background: url("img/star-rating-icons.gif") no-repeat scroll 0 0 transparent;
+	line-height: 1em;
+	margin-bottom: 5px;
+	padding: 0 0 5px 68px;
+}
+.sr4Star {
+	background-position: 0 -25px;
+}
+.sr3Star {
+	background-position: 0 -50px;
+}
+.sr2Star {
+	background-position: 0 -75px;
+}
+.sr1Star {
+	background-position: 0 -100px;
+}	
+.multi input {
+	float: left;
+	margin-right: 3px;
+}
+span.text-star {
+	display: inline;
+	visibility: hidden;
+	width: 200px;
+}
+.multi {
+    margin: 0;
+    padding: 0;
+}
+.multi li {
+    overflow: hidden;
+}
+.item li {
+    font-size: 11px;
+    line-height: 1.5em;
+    list-style-type: none;
+    padding: 3px 0;
+}
+.wrap {
+    padding: 10px;
+    position: absolute;
+    width: 150px;
+    border: 1px solid #666666;
+	top: 100px;
+    left: 100px;	
+}
+</style>
+<script language="JavaScript" src="task1.js" type="text/javascript"></script>
+</head>
+
+<body>
+	<div class="wrap">
+		<ul class="multi star-guest-filter-holder">
+			  <li><label class="srStar sr5Star" for="sr5"><input type="checkbox" value="5" id="sr5"> <span class="text-star">5 Star</span> </label></li>
+			  <li><label class="srStar sr4Star" for="sr4"><input type="checkbox" value="4" id="sr4"> <span class="text-star">4 Star</span> </label></li>
+			  <li><label class="srStar sr3Star" for="sr3"><input type="checkbox" value="3" id="sr3"> <span class="text-star">3 Star</span> </label></li>
+			  <li><label class="srStar sr2Star" for="sr2"><input type="checkbox" value="2" id="sr2"> <span class="text-star">2 Star</span> </label></li>
+			  <li><label class="srStar sr1Star" for="sr1"><input type="checkbox" value="1" id="sr1"> <span class="text-star">1 Star</span> </label></li>
+		</ul>
+	</div>
+</body>
+</html>
