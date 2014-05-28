@@ -12,7 +12,7 @@
 // 7. Результатом выполнения задания должен быть JavaScript файл, подключенный к странице task_1.htm
 
 
-'use strict'
+
 /////////////////////////////////////// Кроссбраузерный обработчик события готовности  /////////////////////////////
 function bindReady(handler) {
 
@@ -79,7 +79,7 @@ function onReady(handler) {
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////
-
+'use strict'
 function setCookie(name, value, expires, path, domain, secure) {
     //var str = name + "=" + escape(value) +
     var str = name + "=" + value +
