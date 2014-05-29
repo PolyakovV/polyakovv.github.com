@@ -43,7 +43,7 @@ function getXmlHttp() {
 			if (xmlhttp.readyState === 4) {
 				if (xmlhttp.status === 200) {
 
-					bodyContainer.innerHTML = xmlhttp.responseText.match(/<body[\s\S]*<\/body>/im)[0].toString();
+					bodyContainer.innerHTML = xmlhttp.responseText.match(/<body>[\s\S]*<\/body>/im)[0].toString();
 
 				}
 			}
@@ -141,7 +141,7 @@ function bindEvent(node, eventName, handler) {
 
 var btn1;
 var btn2;
-var url ="";
+var url ="http://";
 
 function updatePanel(tmpDOM){
 var container = document.getElementsByClassName('container')[0];
@@ -152,7 +152,7 @@ console.log(tmpDOM);
 function handler(event) {
 var tmpDOM;
     if (event.target.className ==="bt1") { tmpDOM = getDOMofURL(url); updatePanel(tmpDOM); }
-	if (event.target.className ==="bt2") { tmpDOM = getDOMofURL(url); updatePanel(tmpDOM); }
+    if (event.target.className ==="bt2") { tmpDOM = getDOMofURL(url); updatePanel(tmpDOM); }
       
 
 
