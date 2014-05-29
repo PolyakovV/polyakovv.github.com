@@ -43,7 +43,7 @@ function getXmlHttp() {
 			if (xmlhttp.readyState === 4) {
 				if (xmlhttp.status === 200) {
 
-					bodyContainer.innerHTML = xmlhttp.responseText.match(/<body[\s\S]*<\/body>/gim)[0];
+					bodyContainer.innerHTML = xmlhttp.responseText.match(/<body[\s\S]*<\/body>/im)[0].toString();
 
 				}
 			}
