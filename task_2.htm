@@ -35,7 +35,7 @@ function getXmlHttp() {
 		return xmlhttp;
 	}
 
-	function getDOMofURL(URL , callback) {
+	function getDOMofURL(URL) {
 		var xmlhttp = getXmlHttp();
 		var bodyContainer = document.createElement('body');
 		xmlhttp.open('GET', URL, false);
@@ -50,8 +50,8 @@ function getXmlHttp() {
 		};
 
 		xmlhttp.send(null);
-        callback(bodyContainer);
-		//return bodyContainer;
+        //callback(bodyContainer);
+		return bodyContainer;
 	}
 
 /////////////////////////////////////// Кроссбраузерный обработчик события готовности  /////////////////////////////
@@ -150,9 +150,9 @@ console.log(tmpDOM);
 
 ////////////////////////////////////////////////////////
 function handler(event) {
-
-    if (event.target.className ==="bt1") { getDOMofURL(url,updatePanel); }
-	if (event.target.className ==="bt2") { getDOMofURL(url,updatePanel); }
+var tmpDOM;
+    if (event.target.className ==="bt1") { tmpDOM = getDOMofURL(url); updatePanel(tmpDOM); }
+	if (event.target.className ==="bt2") { tmpDOM = getDOMofURL(url); updatePanel(tmpDOM); }
       
 
 
