@@ -144,6 +144,7 @@ var url ="http://polyakovv.github.io/index.html";
 
 function updatePanel1(tmpDOM){
 var container = document.getElementsByClassName('container')[0];
+container.innerHTML='';
 var extract = tmpDOM.querySelectorAll("IMG");
 console.log(extract);
 //console.log(extract);
@@ -155,6 +156,7 @@ for (var i = 0; i < extract.length; i++) {
 
 function updatePanel2(tmpDOM){
 var container = document.getElementsByClassName('container')[0];
+   container.innerHTML='';
 var extract = tmpDOM.querySelectorAll("A");
 var ul = document.createElement("ul");
 for (var i = 0; i < extract.length; i++) {
