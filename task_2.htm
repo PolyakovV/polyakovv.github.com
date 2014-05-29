@@ -8,7 +8,6 @@
 
 .wrap {
     padding: 10px;
-    position: absolute;
     width: 280px;
     border: 1px solid #666666;
 	top: 10px;
@@ -156,7 +155,15 @@ for (var i = 0; i < extract.length; i++) {
 
 function updatePanel2(tmpDOM){
 var container = document.getElementsByClassName('container')[0];
-//console.log(tmpDOM);
+var extract = tmpDOM.querySelectorAll("A");
+var ul = document.createElement("ul");
+for (var i = 0; i < extract.length; i++) {
+	var li = document.createElement("li");
+    li.appendChild(extract[i]);
+    ul.appendChild(li);
+};
+
+container.appendChild(ul);
 }
 
 ////////////////////////////////////////////////////////
