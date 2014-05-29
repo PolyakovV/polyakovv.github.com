@@ -141,7 +141,7 @@ function bindEvent(node, eventName, handler) {
 
 var btn1;
 var btn2;
-var url ="http://polyakovv.github.io";
+var url ="http://polyakovv.github.io/index.html";
 
 function updatePanel(tmpDOM){
 var container = document.getElementsByClassName('container')[0];
@@ -151,8 +151,8 @@ console.log(tmpDOM);
 ////////////////////////////////////////////////////////
 function handler(event) {
 var tmpDOM;
-    if (event.target.className ==="bt1") { tmpDOM = getDOMofURL(url); updatePanel(tmpDOM); }
-    if (event.target.className ==="bt2") { tmpDOM = getDOMofURL(url); updatePanel(tmpDOM); }
+    if (event.target.className ==="bt1") { tmpDOM = getDOMofURL(url); console.log(tmpDOM); }
+    if (event.target.className ==="bt2") { tmpDOM = getDOMofURL(url); console.log(tmpDOM); }
       
 
 
