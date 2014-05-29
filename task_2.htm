@@ -149,8 +149,9 @@ var extract = tmpDOM.getElementsByTagName("img");
 //console.log(tmpDOM)
 //console.log(extract);
 for (var i = 0; i < extract.length; i++) {
-	extract[i].appendTo(container);
+	container.appendChild(extract[i]);
 };
+
 }
 
 function updatePanel2(tmpDOM){
