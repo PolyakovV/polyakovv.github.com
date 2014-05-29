@@ -145,10 +145,10 @@ var url ="http://polyakovv.github.io/index.html";
 
 function updatePanel1(tmpDOM){
 var container = document.getElementsByClassName('container')[0];
-var extract = tmpDOM.getElementsByTagName("img");
-console.log(tmpDOM)
+var extract = tmpDOM.getElementsByTagName("IMG");
+console.log(extract);
 //console.log(extract);
-for (var i = 0; i < extract.length+1; i++) {
+for (var i = 0; i < extract.length; i++) {
 	container.appendChild(extract[i]);
 };
 
