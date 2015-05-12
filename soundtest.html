@@ -19,12 +19,12 @@ function synth(val) {
 var context = new AudioContext(); // Create audio container
 				oscillator1 = context.createOscillator(); // Create sound source 1
 				
-				
+				gainNode1 = context.createGain(); // Create gain node 1
 
 			oscillator1.type = "sin"; // Sin Square wave
 			oscillator1.frequency.value = 10000; // Default frequency in hertz
 			oscillator1.connect(context.destination); // Connect sound source 1 to output
-			gainNode2.gain.value = 1.0; // Set gain node 2 to 30 percent			
+			gainNode1.gain.value = 1.0; // Set gain node 2 to 30 percent			
 			oscillator1.start(); // Play sound source 1 instantly
 		        
 			
