@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+ <head>
+  <meta charset="utf-8">
+  <title>Sound Remote Controller</title>
+  <style>
+  p { color:  navy; }
+  </style>
+ </head>
+ <body>
+  <p>Sound Remote Controller</p>
+<button type="button" onclick="synth(255)" id="but1" name="but1">Button1</button>
+<button type="button" onclick="synth(0)"   id="but2" name="but2">Button2</button>
+ </body>
+
+<script>
+
+function synth(val) {
+var context = new AudioContext(); // Create audio container
+				oscillator1 = context.createOscillator(); // Create sound source 1
+				
+				gainNode2 = context.createGain(); // Create gain node 2
+
+			oscillator1.type = "sin"; // Sin Square wave
+			oscillator1.frequency.value = 10000; // Default frequency in hertz
+			oscillator1.connect(context.destination); // Connect sound source 1 to output
+			gainNode2.gain.value = 1.0; // Set gain node 2 to 30 percent			
+			oscillator1.start(); // Play sound source 1 instantly
+		        
+			
+		        
+}
+
+</script>
+
+</html>
